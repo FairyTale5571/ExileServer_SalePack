@@ -1,0 +1,74 @@
+10.11.2017 18:33: Info [line: 0 Loot -> .ctor()]: =====================================================================
+10.11.2017 18:33: Info [line: 0 Loot -> .ctor()]: Exile Loot Drop Extension
+10.11.2017 18:33: Info [line: 0 Loot -> .ctor()]: By maca134
+10.11.2017 18:33: Info [line: 0 Loot -> .ctor()]: Please remember to donate for more cool shit!
+10.11.2017 18:33: Info [line: 0 Loot -> .ctor()]: http://maca134.co.uk
+10.11.2017 18:33: Info [line: 0 Loot -> .ctor()]: =====================================================================
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for CivillianLowerClass
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for CivillianUpperClass
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Shop
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Industrial
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Factories
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for VehicleService
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Military
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Medical
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Tourist
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Radiation
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Food
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Drinks
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Pistols
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for PistolAmmo
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for PistolAttachments
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Shotguns
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for ShotgunAmmo
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for SMG
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for SMGAmmo
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for SMGAttachments
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Rifles
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for RifleAmmo
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for RifleAttachments
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for LMG
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for LMGAmmo
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Snipers
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for SniperAmmo
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for SniperAttachments
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for DLCRifles
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for DLCAmmo
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for DLCOptics
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for DLCSupressor
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for EpicWeapons
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Bipods
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for HEGrenades
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for UGLFlares
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for UGLSmokes
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for HandGrenades
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Explosives
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for CivilianItems
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for CivilianClothing
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for CivilianBackpacks
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for CivilianVests
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for CivilianHeadgear
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for GuerillaItems
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for GuerillaClothing
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for GuerillaBackpacks
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for GuerillaVests
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for GuerillaHeadgear
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for MilitaryClothing
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for MilitaryBackpacks
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for MilitaryVests
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for MilitaryHeadgear
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Ghillies
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for DLCGhillies
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for DLCVests
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Rebreathers
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for MedicalItems
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for IndustrialItems
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Vehicle
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Chemlights
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for RoadFlares
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for SmokeGrenades
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Restraints
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Electronics
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Trash
+10.11.2017 18:33: Info [line: 0 LootTable -> .ctor()]: Pre caching loot for Unused
+10.11.2017 18:33: Info [line: 0 Loot -> .ctor()]: Took 2721,9483ms to load and parse loot cfg

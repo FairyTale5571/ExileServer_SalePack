@@ -1,0 +1,1 @@
+getNumber(missionConfigFile >> "CfgFlagHacking" >> "failChance")

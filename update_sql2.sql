@@ -1,0 +1,1 @@
+ALTER TABLE vehicle ADD `nickname` varchar(64) NOT NULL DEFAULT '' AFTER `territory_id`;

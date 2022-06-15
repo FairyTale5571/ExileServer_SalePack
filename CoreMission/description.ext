@@ -1,0 +1,527 @@
+#define true 1
+#define false 0
+
+#include "infiSTAR_AdminMenu.hpp"
+// Required for the XM8, do not remove!
+#include "RscDefines.hpp"
+
+#include "MarXet\dialog\RscMarXetDefines.hpp"
+#include "MarXet\dialog\RscMarXetDialog.hpp"
+#include "MostWanted_Client\dialog\dialog.hpp"
+#include "R3F_LOG\desc_include.h"
+///////////////////////////////////////////////////////////////////////////////
+// Server Settings - Modify at will
+///////////////////////////////////////////////////////////////////////////////
+author = "Exile Mod Team";
+onLoadName = "Exile Mod";
+onLoadMission= "www.exilemod.com";
+loadScreen = "exile_assets\texture\mod\logo.paa"; 
+disableChannels[] = {0, 2};
+OnLoadIntro = "";
+OnLoadIntroTime = false;
+OnLoadMissionTime = false;
+
+class Header
+{
+    gameType = Survive; // Do NOT change this
+    minPlayers = 1;
+    maxPlayers = 100;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Exile Settings - Do not change these!
+///////////////////////////////////////////////////////////////////////////////
+forceRotorLibSimulation = 2;
+skipLobby = 1;
+joinUnassigned = 1;
+respawn = "BASE";
+respawnDelay = 120;
+respawnDialog = 0;
+respawnOnStart = 0;
+respawnButton = 1; 
+respawnTemplates[] = {"Exile"};
+corpseManagerMode = 0;
+corpseLimit = 20;
+corpseRemovalMinTime = 1800;
+corpseRemovalMaxTime = 3600;
+wreckManagerMode = 0;
+wreckLimit = 2;
+wreckRemovalMinTime = 60;
+wreckRemovalMaxTime = 360;
+scriptedPlayer = 1;
+disabledAI = 1;
+enableItemsDropping = 0;
+briefing = 0;
+debriefing = 0;
+allowFunctionsLog = 1;
+enableDebugConsole = 0; 
+allowFunctionsRecompile = 0;
+showSquadRadar = 0;
+showUAVFeed = 0;
+reviveDelay = 6;
+reviveForceRespawnDelay = 3;
+reviveBleedOutDelay = 120;
+
+showHUD[] = 
+{
+    true,   // Scripted HUD (same as showHUD command)
+    true,   // Vehicle + soldier info
+    true,   // Vehicle radar 
+    true,   // Vehicle compass
+    true,   // Tank direction indicator
+    false,  // Commanding menu
+    false,  // Group Bar
+    true,   // HUD Weapon Cursors
+    true   // Squad Radar
+};
+
+#include "config.hpp"
+#include "ExAdClient\ExAd.hpp"
+#include "custom\DailyReward\RscRewardDialog.hpp"
+#include "MostWanted_Client\Dialog\MostWantedDefines.hpp"
+#include "MostWanted_Client\Dialog\MostWantedDialog.hpp"
+#include "MostWanted_Client\Dialog\xsSpawnDiaglog.hpp"
+#include "custom\Paint\Dialog\BasePaintingDialog.hpp"
+#include "custom\Paint\Dialog\VehiclePaintingDialog.hpp"
+#include "custom\Paint\Config\CfgBasePainting.hpp"
+#include "custom\Paint\Config\CfgVehiclePainting.hpp"
+#include "custom\rewards\rewardsDialog.hpp"
+class CfgFunctions
+{
+	#include "ExAdClient\CfgFunctions.hpp"
+};
+
+class RscTitles
+{
+	#include "ExAdClient\RscTitles.hpp"
+	#include "custom\restartWarnings\hpp\RscDisplayRestartWarnings.hpp"
+};
+
+class CfgHints
+{
+	class MostWanted
+	{
+		displayName = "MostWanted";
+
+		class NewBounty
+		{
+			displayName = "New Bounty";
+			description = "%3INMATES!%4%1A perspective client has set a bounty on a fellow inmate.%1The client is offering <t color='#ff0000'>%11</t> poptabs for their head.%1Your local Office Trader has the details and the contract if you choose to accept it.";
+			image = "";
+			noImage = true;
+			tip = "";
+			arguments[] = {
+				"MostWanted_BountyAmount"
+			};
+		};
+		class SuccessfulKill
+		{
+			displayName = "Kill Confirmed";
+			description = "%3Ouch! That looked like that hurt.%4%1You have successfully completed your bounty contract.%1Talk to your local Office Trader to collect your bounty of <t color='#ff0000'>%11</t>.";
+			image = "";
+			noImage = true;
+			tip = "";
+			arguments[] = {
+				"MostWanted_SuccessfulKill"
+			};
+		};
+		class BountyClaimed
+		{
+			displayName = "Bounty Claimed";
+			description = "%3Bounty Claimed!%4%1One very lucky inmate has claimed the bounty on <t color='#ff0000'>%11</t>.%1Contracts on this inmate have been cleared!%1Please visit your local Office Trader to get another contract.";
+			image = "";
+			noImage = true;
+			tip = "";
+			arguments[] = {
+				"MostWanted_BountyName"
+			};
+		};
+	};
+
+	class ExAd
+	{
+		displayName = "ExAd Virtual Garage";
+		class VGStore
+		{
+			displayName = "Vehicle stored";
+			/*displayNameShort = "Your vehicle has been stored and is available through the Virtual Garage interface";*/
+			description = "Your vehicle has been stored and is only available through the territory it has been stored at. ";
+			image = "ExAdClient\Core\Img\logo.paa";
+			noImage = false;
+			tip = "";
+			arguments[] = {};
+		};
+		class VGLoad
+		{
+			displayName = "Vehicle loaded to world";
+			description = "%1Your vehicle has been loaded to the world, the pin code is %11";
+			image = "ExAdClient\Core\Img\logo.paa";
+			noImage = false;
+			tip = "";
+			arguments[] = {"VGLoad select 0"};
+			parameters[] = {"STRING"};
+		};
+	};
+};
+
+class CfgNetworkMessages
+{
+	class hackFlagRequest
+	{
+		module="object_flag";
+		parameters[]=
+		{
+			"STRING"
+		};
+	};
+	class updateFlagHackAttemptRequest
+	{
+		module="object_flag";
+		parameters[]=
+		{
+			"STRING"
+		};
+	};
+	class startFlagHackRequest
+	{
+		module="object_flag";
+		parameters[]=
+		{
+			"STRING"
+		};
+	};
+	class buyNowRequest
+	{
+		module = "MarXet";
+		parameters[] = {"STRING","STRING"};
+	};
+	class buyerBuyNowResponse
+	{
+		module = "MarXet";
+		parameters[] = {"ARRAY","STRING","STRING","STRING"};
+	};
+	class sellerBuyNowResponse
+	{
+		module = "MarXet";
+		parameters[] = {"ARRAY"};
+	};
+	class createNewListingRequest
+	{
+		module = "MarXet";
+		parameters[] = {"ARRAY"};
+	};
+	class createNewListingResponse
+	{
+		module = "MarXet";
+		parameters[] = {"BOOL","STRING","STRING","SCALAR"};
+	};
+	class updateInventoryRequest
+	{
+		module = "MarXet";
+		parameters[] = {"SCALAR"};
+	};
+	class updateInventoryResponse
+	{
+		module = "MarXet";
+		parameters[] = {"ARRAY"};
+	};
+
+	class retrieveAloneVehicleResponse
+	{
+		module = "VirtualGarage";
+		parameters[] = {"STRING","STRING"};
+	};
+	class updateDataResponse
+	{
+		module = "VirtualGarage";
+		parameters[] = {"STRING"};
+	};
+	/* ~~ Rewards Claim Vendor by Andrew_S90 CfgNetworkMessages Start ~~ */
+	class claimItemRequest
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"STRING",
+			"SCALAR",
+			"STRING"
+		};
+	};
+	class claimItemResponse
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"SCALAR",
+			"STRING",
+			"SCALAR",
+			"STRING",
+			"ARRAY"
+		};
+	};
+	class claimVehicleRequest
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"STRING",
+			"STRING"
+		};
+	};
+	class claimVehicleResponse
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"SCALAR",
+			"STRING",
+			"ARRAY"
+		};
+	};
+	class claimTabsRequest
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"STRING",
+			"SCALAR"
+		};
+	};
+	class claimTabsResponse
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"SCALAR",
+			"STRING",
+			"SCALAR",
+			"ARRAY"
+		};
+	};
+	class hasRewardsRequest
+	{
+		module="system_rewards";
+		parameters[]={};
+	};
+	class hasRewardsResponse
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"SCALAR",
+			"ARRAY"
+		};
+	};
+	class addRewardsRequest
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"STRING",
+			"ARRAY"
+		};
+	};
+	class addKitRequest
+	{
+		module="system_rewards";
+		parameters[]=
+		{
+			"STRING",
+			"STRING"
+		};
+	};
+	/* ~~ Rewards Claim Vendor by Andrew_S90 CfgNetworkMessages End ~~ */
+	class PaintVehicleRequest
+	{
+		module = "VehiclePainting";
+		parameters[] =
+		{
+			"OBJECT", //Vehicle Being Painted
+			"ARRAY" //Texture Array
+		};
+	};
+	class PaintVehicleResponse
+	{
+		module = "VehiclePainting";
+		parameters[] =
+		{
+			"BOOL", //Success status
+			"STRING" //Error/Success message
+		};
+	};
+	class ResetVehicleRequest
+	{
+		module = "VehiclePainting";
+		parameters[] =
+		{
+			"OBJECT", //Base Part
+			"ARRAY" //Texture Array
+		};
+	};
+
+	class PaintBasePartRequest
+	{
+		module = "BasePainting";
+		parameters[] =
+		{
+			"OBJECT", //Base Part
+			"ARRAY" //Texture Array
+		};
+	};
+
+	class PaintBasePartResponse
+	{
+		module = "BasePainting";
+		 parameters[] =
+		{
+			"BOOL", //True False ..... DUHHHH
+			"STRING" //Error/Success message
+		};
+	};
+
+	class ResetBasePartRequest
+	{
+		module = "BasePainting";
+		parameters[] =
+		{
+			"OBJECT", //Base Part
+			"ARRAY" //Texture Array
+		};
+	};
+	class masterListRequest
+	{
+		module = "MostWanted";
+		parameters[] = {"STRING"};
+	};
+	class masterListResponse
+	{
+		module = "MostWanted";
+		parameters[] = {"ARRAY"};
+	};
+	class addBounty
+	{
+		module = "MostWanted_bounty";
+		parameters[] = {"STRING","STRING","STRING","STRING"};
+	};
+	class addBountyResponse
+	{
+		module = "MostWanted";
+		parameters[] = {"STRING","STRING"};
+	};
+	class newBountyNotification
+	{
+		module = "MostWanted";
+		parameters[] = {"ARRAY","STRING"};
+	};
+	class targetKilledResponse
+	{
+		module = "MostWanted";
+		parameters[] = {"ARRAY","STRING","STRING","ARRAY","STRING"};
+	};
+	class acceptContract
+	{
+		module = "MostWanted_bounty";
+		parameters[] = {"STRING"};
+	};
+	class terminateContract
+	{
+		module = "MostWanted_bounty";
+		parameters[] = {"STRING"};
+	};
+	class terminateContractResponse
+	{
+		module = "MostWanted";
+		parameters[] = {"SCALAR"};
+	};
+	class updateCompletedContracts
+	{
+		module = "MostWanted";
+		parameters[] = {"ARRAY"};
+	};
+	class claimContractRequest
+	{
+		module = "MostWanted_bounty";
+		parameters[] = {"STRING","SCALAR"};
+	};
+	class claimContractResponse
+	{
+		module = "MostWanted";
+		parameters[] = {"ARRAY","STRING","STRING","STRING"};
+	};
+	class handlePartyInvite
+	{
+		module = "MostWanted_friends";
+		parameters[] = {"STRING"};
+	};
+	class handlePartyInviteResponse
+	{
+		module = "MostWanted_friends";
+		parameters[] = {"STRING"};
+	};
+	class friendsUpdateRequest
+	{
+		module = "MostWanted_friends";
+		parameters[] = {"ARRAY","STRING"};
+	};
+	
+	class addRespectReward
+    {
+        module = "Reward";
+        parameters[] = {"STRING"};
+    };
+    class addPopReward
+    {
+        module = "Reward";
+        parameters[] = {"STRING"};
+    };
+    class updateRewardDate
+    {
+        module = "Reward";
+        parameters[] = {"STRING"};
+    };
+	class buyRequest
+    {
+        module = "AirDrop";
+        parameters[] = {"STRING"};
+    };
+    class InsertClaimedVehicle
+    {
+        module = "ClaimVehicle";
+        parameters[] = {"STRING","STRING"};
+    };
+	class AdvancedHint
+	{
+		parameters[] = {"STRING","ARRAY"};
+	};
+	class Call
+	{
+		parameters[] = {"CODE"};
+	};
+	class KillMessages
+	{
+		module = "KillMessages";
+		parameters[] = {"STRING","STRING","OBJECT","OBJECT"};
+	};
+};
+
+class CfgRemoteExec
+{
+    class Functions
+    {
+        mode = 1;
+        jip = 0;
+		class fnc_AdminReq 										 	{ allowedTargets=2; };
+        class ExileServer_system_network_dispatchIncomingMessage 	{ allowedTargets=2; };
+		class ExAdServer_fnc_clientRequest 							{ allowedTargets=2; };
+		class AVS_fnc_rearmVehicle									{ allowedTargets=2; };
+        class AVS_fnc_refuelPayment                                 { allowedTargets=2; };
+        class AVS_fnc_refuelVehicle									{ allowedTargets=2; };
+		class AVS_fnc_fillCanister									{ allowedTargets=2; };
+    };
+
+    class Commands
+    {
+		mode = 0;
+		jip = 0;
+    };
+};

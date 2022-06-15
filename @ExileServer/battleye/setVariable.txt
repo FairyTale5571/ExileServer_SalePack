@@ -1,0 +1,2 @@
+//new
+1 "" !="aur_animation_move" !="aur_is_rappelling" !="bleedoutcountdownend" !="r3f_log_est_deplace_par" !="spawnbase_qwer_1" !="bleedoutcountdownend" !="GR8owner" !="antidupe" !="enigmarevivepermitted" !="exilexm8isonline" !="default_mass" !="bis_fnc_selectrespawntemplate_respawned" !="ExileCameraInUse" !="isrunning" !"usable_ramp" !"can_copilot" !"cargo_offset" !"slots" !"load_offset" !"zload" !"can_outside" !"slots_num" !="bis_fnc_objectvar_var" !"can_load" !"doors" !"attachedtruck" !"attachedpos" !"box_num" !"can_load" !"zload_cargo"
