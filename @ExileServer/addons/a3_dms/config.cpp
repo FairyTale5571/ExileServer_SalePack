@@ -4,8 +4,8 @@ class CfgPatches
 	{
 		units[] = {};
 		weapons[] = {};
-		a3_DMS_version = "March 8, 2017";
-		requiredVersion = 1.66;
+		a3_DMS_version = "Nov 7, 2018";
+		requiredVersion = 1.68;
 		requiredAddons[] = {"exile_client","exile_server_config"};
 	};
 };
@@ -76,6 +76,7 @@ class CfgFunctions
 			class SetGroupBehavior 				{};
 			class SetGroupBehavior_Separate		{};
 			class SetRelPositions				{};
+			class ShuffleNewArray				{};
 			class SpawnAIGroup 					{};
 			class SpawnAIGroup_MultiPos			{};
 			class SpawnAIVehicle				{};
