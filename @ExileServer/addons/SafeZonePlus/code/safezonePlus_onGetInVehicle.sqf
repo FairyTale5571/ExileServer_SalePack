@@ -42,7 +42,7 @@ catch
 
 				if ((owner _vehicle) != (owner _owner)) then
 				{
-					if (_vehicle setGroupOwner (owner _owner)) then
+					if ((group _vehicle) setGroupOwner (owner _owner)) then
 					{
 						[_owner, "toastRequest", ["SuccessTitleAndText", ["SafeZonePlus:", "Don't worry, you're still the owner!"]]] call ExileServer_system_network_send_to;
 					}
