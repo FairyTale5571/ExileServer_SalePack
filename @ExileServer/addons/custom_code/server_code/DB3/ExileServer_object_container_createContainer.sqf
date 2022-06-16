@@ -7,6 +7,7 @@
  *
  * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ * 64Bit Conversion File Header (Extdb3) - Validatior
  */
  
 private["_className","_position","_direction","_containerObject"];
@@ -26,5 +27,12 @@ if(getNumber(configFile >> "CfgVehicles" >> typeOf _containerObject >> "exileIsL
 {
 	_containerObject setVariable ["ExileIsLocked", -1,true];
 };
-_containerObject call ExileServer_system_simulationMonitor_addVehicle;
+if (getNumber(missionConfigFile >> "CfgSimulation" >> "enableDynamicSimulation") isEqualTo 1) then 
+{
+	_containerObject enableDynamicSimulation true;
+}
+else
+{
+	_containerObject call ExileServer_system_simulationMonitor_addVehicle;
+};
 _containerObject
