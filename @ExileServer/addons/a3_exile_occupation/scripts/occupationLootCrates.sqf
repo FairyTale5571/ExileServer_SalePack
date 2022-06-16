@@ -32,7 +32,7 @@ for "_i" from 1 to SC_numberofLootCrates do
 		_validspot	= true;
 		
 		//Check if near another crate site
-		_nearOtherCrate = (nearestObjects [_position,["CargoNet_01_box_F"],500]) select 0;	
+		_nearOtherCrate = (nearestObjects [_position,["Exile_Container_SupplyBox"],500]) select 0;	
 		if (!isNil "_nearOtherCrate") then { _validspot = false; };			
 	};	
 	
@@ -41,12 +41,10 @@ for "_i" from 1 to SC_numberofLootCrates do
 	if (SC_occupyLootCratesMarkers) then 
 	{		
 		_event_marker = createMarker [ format ["SC_loot_marker_%1", _i], _position];
-		_event_marker setMarkerColor "ColorGreen";
+		_event_marker setMarkerColor "ColorWhite";
 		_event_marker setMarkerAlpha 1;
 		_event_marker setMarkerText "Gear Crate";
-		_event_marker setMarkerType "loc_Tree";
-		_event_marker setMarkerBrush "Vertical";
-		_event_marker setMarkerSize [(3), (3)];
+		_event_marker setMarkerType "ExileMissionStrongholdIcon";
 	};	
 
 	if (SC_SpawnLootCrateGuards) then
@@ -94,7 +92,7 @@ for "_i" from 1 to SC_numberofLootCrates do
 				}foreach units _initialGroup;  		
 				deleteGroup _initialGroup;
 				
-				[_group, _spawnPosition, 100] call bis_fnc_taskPatrol;
+				[_group, _spawnPosition, 25] call bis_fnc_taskPatrol;
 				_group setBehaviour "STEALTH";
 				_group setCombatMode "RED";
 
@@ -110,7 +108,7 @@ for "_i" from 1 to SC_numberofLootCrates do
 
     
     
-	_box = "CargoNet_01_box_F" createvehicle _position;
+	_box = "Exile_Container_SupplyBox" createvehicle _position;
 	clearMagazineCargoGlobal _box;
 	clearWeaponCargoGlobal _box;
 	clearItemCargoGlobal _box;
@@ -147,6 +145,38 @@ for "_i" from 1 to SC_numberofLootCrates do
 		{
 			_box addBackpackCargoGlobal [_item, _amount];	
 		};			
-	}forEach SC_LootCrateItems;	
+	}forEach SC_LootCrateItems;
 	
+	// Add a wreck for defensive purposes
+	_wrecks = selectRandom [
+							// Trucks
+							"Land_Wreck_BMP2_F",
+							"Land_Wreck_HMMWV_F",
+							"Land_Wreck_BRDM2_F",
+							"Land_Wreck_Ural_F",
+							// Tanks
+							"Land_Wreck_Slammer_F",
+							// Helis
+							"Land_Wreck_Heli_Attack_02_F",
+							"Land_UWreck_Heli_Attack_02_F",
+							// VTOL
+							"Land_UWreck_MV22_F"
+							];
+							
+	_vehWreck = _wrecks createVehicle [0,0,0];
+	
+	/*
+	_effect = "test_EmptyObjectForSmoke";	
+	if(SC_HeliCrashesOnFire) then 
+	{
+		_effect = "test_EmptyObjectForFireBig";	
+	};
+	_wreckFire = _effect createVehicle (position _vehWreck);   
+	_wreckFire attachto [_vehWreck, [0,0,-1]];
+	*/
+	
+	_vehWreckRelPos = _box getRelPos [(10 + (ceil random 15)), (random 360)];
+	_vehWreck setPos _vehWreckRelPos;
+	_vehWreck setDir (random 360);
+	_vehWreck setVectorUp surfaceNormal position _vehWreck;	
 };

@@ -9,13 +9,13 @@ if(SC_useRealNames) then
     {
         case "survivor":
         {
-            _firstName  = SC_SurvivorFirstNames call BIS_fnc_selectRandom; 
-            _lastName   = SC_SurvivorLastNames call BIS_fnc_selectRandom;       
+            _firstName  = selectRandom SC_SurvivorFirstNames; 
+            _lastName   = selectRandom SC_SurvivorLastNames;
         };
         case "bandit":
         {
-            _firstName  = SC_BanditFirstNames call BIS_fnc_selectRandom; 
-            _lastName   = SC_BanditLastNames call BIS_fnc_selectRandom;              
+            _firstName  = selectRandom SC_BanditFirstNames;
+            _lastName   = selectRandom SC_BanditLastNames;
         };
     };
     _name = format["%1 %2",_firstName,_lastName];

@@ -57,7 +57,7 @@ while{!_validspot} do
         {
             _nearestRoad = _nearRoads select 0;
             _position = position _nearestRoad;
-			_isEmpty = !(_position isFlatEmpty  [15, -1, -1, -1, -1, false, player] isEqualTo []); // Check if there is 15m space around the road position to try and stop vehicles spawning on dirt tracks on Tanoa
+			_isEmpty = !(_position isFlatEmpty  [10, -1, -1, -1, -1, false, player] isEqualTo []); // Check if there is 15m space around the road position to try and stop vehicles spawning on dirt tracks on Tanoa
 			if(!_isEmpty) then 
 			{ 
 				_validspot = false;  

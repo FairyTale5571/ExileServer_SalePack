@@ -9,11 +9,12 @@ _logDetail = format['[OCCUPATION:Traders] starting @ %1',time];
         private _traderPos 		    = _x select 2;
         private _fileName 		    = _x select 3;
         private _createSafezone 	= _x select 4;
+		private _safeZoneRadius		= _x select 5;
         private _file = format ["x\addons\a3_exile_occupation\trader\%1",_fileName];
         SC_fnc_createTraders = compile preprocessFileLineNumbers _file; 
         [_traderPos] call SC_fnc_createTraders;
 
-        _traderName setmarkeralpha 0; 
+        _traderName setMarkerAlpha 0; 
         private _marker = createMarker [ format [" %1 ", _traderName], _traderPos];
         _marker setMarkerText "";
 		_marker setMarkerShape "ICON";
@@ -22,12 +23,15 @@ _logDetail = format['[OCCUPATION:Traders] starting @ %1',time];
 		private _marker1 = createMarker [ format [" %1_1 ", _traderName], _traderPos];
         _marker1 setMarkerText "";
 		_marker1 setMarkerType "ExileTraderZone";
-		_marker1 setmarkeralpha 0;
+		_marker1 setMarkerColor "ColorBlack";
+		_marker1 setMarkerBrush "Border";
+		_marker1 setMarkerShape "ELLIPSE";
+		_marker1 setMarkerSize [_safeZoneRadius, _safeZoneRadius];
 
         if(_createSafezone) then
         {
             ExileTraderZoneMarkerPositions pushBack _traderPos;  
-            ExileTraderZoneMarkerPositionsAndSize pushBack [_traderPos, 175];   
+            ExileTraderZoneMarkerPositionsAndSize pushBack [_traderPos, (getMarkerSize _marker1) select 0];   
             publicVariable "ExileTraderZoneMarkerPositions";
             publicVariable "ExileTraderZoneMarkerPositionsAndSize";     
         };

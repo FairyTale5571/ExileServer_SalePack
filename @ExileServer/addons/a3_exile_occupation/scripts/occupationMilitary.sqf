@@ -98,7 +98,9 @@ if(_aiActive > _maxAIcount) exitWith
 			_groupRadius = 500;
 			_difficulty = "random";
 			_side = SC_BanditSide;
-			_spawnPosition = _pos;				
+			_spawnPosition = _pos;
+			_loadOut = ["bandit"] call SC_fnc_selectGear;	
+
 									
 			// Get the AI to shut the fuck up :)
 			enableSentences false;
@@ -107,7 +109,7 @@ if(_aiActive > _maxAIcount) exitWith
 			if(!SC_useWaypoints) then
 			{
 				DMS_ai_use_launchers = false;
-				_groupInitial = [_spawnPosition, _aiCount, _difficulty, "random", "bandit"] call DMS_fnc_SpawnAIGroup;
+				_groupInitial = [_spawnPosition, _aiCount, _difficulty, "random", "bandit", _loadOut] call DMS_fnc_SpawnAIGroup;
 				DMS_ai_use_launchers = _useLaunchers;
 
 				_group = createGroup SC_BanditSide;   
@@ -138,7 +140,7 @@ if(_aiActive > _maxAIcount) exitWith
 			{
 								
 				DMS_ai_use_launchers = false;
-				_groupInitial = [_spawnPosition, _aiCount, _difficulty, "random", "bandit"] call DMS_fnc_SpawnAIGroup;
+				_groupInitial = [_spawnPosition, _aiCount, _difficulty, "random", "bandit", _loadOut] call DMS_fnc_SpawnAIGroup;
 				DMS_ai_use_launchers = _useLaunchers;
 
 				_group = createGroup SC_BanditSide;   
