@@ -48,10 +48,13 @@ DMS_Enable_RankChange = false; // Whether or not to use Rank Changes. (Required 
 DMS_Add_AIKill2DB = false;  // Adds killstat for player in the database ;)
 
 DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a scheduled environment. Setting to true may help with lag when certain missions spawn.
+//Note, if you have the above to true, you need to set DMS_ai_freezeOnSpawn = false; and DMS_ai_share_info = true;
 
 /* Mission System Settings */
 	/*General settings for dynamic missions*/
 	DMS_DynamicMission					= true;						// Enable/disable dynamic mission system.
+	DMS_BroadcastMissionSuccess 		= true;						// Whether or not to broadcast the completion of a mission.
+	DMS_BroadcastMissionFail	 		= true;						// Whether or not to broadcast the "failure" of a mission.
 	DMS_MaxBanditMissions				= 3;						// Maximum number of Bandit Missions running at the same time
 	DMS_TimeToFirstMission				= [180,420];				// [Minimum,Maximum] time between first mission spawn. | DEFAULT: 3-7 minutes.
 	DMS_TimeBetweenMissions				= [600,900];				// [Minimum,Maximum] time between missions (if mission limit is not reached) | DEFAULT: 10-15 mins
@@ -63,6 +66,8 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 
 	/*General settings for static missions*/
 	DMS_StaticMission					= true;						// Enable/disable static mission system.
+	DMS_BroadcastStaticMissionSuccess 	= true;						// Whether or not to broadcast the completion of a static mission.
+	DMS_BroadcastStaticMissionFail	 	= true;						// Whether or not to broadcast the "failure" of a static mission.
 	DMS_MaxStaticMissions				= 1;						// Maximum number of Static Missions running at the same time. It's recommended you set this to the same amount of static missions that you have in total. This config will be ignored by "DMS_StaticMissionsOnServerStart".
 	DMS_TimeToFirstStaticMission		= [30,30];					// [Minimum,Maximum] time between first static mission spawn. | DEFAULT: 3-7 minutes.
 	DMS_TimeBetweenStaticMissions		= [900,1800];				// [Minimum,Maximum] time between static missions (if static mission limit is not reached) | DEFAULT: 15-30 mins
@@ -81,6 +86,7 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 
 	/*Mission Marker settings*/
 	DMS_ShowDifficultyColorLegend		= true;						// Whether or not to show a "color legend" at the bottom left of the map that shows which color corresponds to which difficulty. I know it's not very pretty, meh.
+	DMS_ShowMarkerDot					= true;						// Whether or not to show the mission marker dot.
 	DMS_ShowMarkerCircle				= false;					// Whether or not to show the colored "circle" around a mission marker.
 	DMS_MarkerText_ShowMissionPrefix	= true;						// Whether or not to place a prefix before the mission marker text. Enable this if your players get confused by the marker names :P
 	DMS_MarkerText_MissionPrefix		= "Mission:";				// The text displayed before the mission name in the mission marker.
@@ -88,7 +94,7 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_MarkerText_ShowAICount_Static	= true;						// Whether or not to display the number of remaining AI in the marker name for STATIC missions.
 	DMS_MarkerText_AIName				= "Units";					// What the AI will be called in the map marker. For example, the marker text can show: "Car Dealer (3 Units remaining)"
 	DMS_MarkerPosRandomization			= false;					// Randomize the position of the circle marker of a mission
-	DMS_MarkerPosRandomRadius			= [25,100];					// Minimum/Maximum distance that the circle marker position will be randomized | DEFAULT: 0 meters to 200 meters
+	DMS_MarkerPosRandomRadius			= [25,100];					// Minimum/Maximum distance that the circle marker position will be randomized | DEFAULT: 25 meters to 100 meters
 	DMS_RandomMarkerBrush				= "Cross";					// See: https://community.bistudio.com/wiki/setMarkerBrush
 	DMS_MissionMarkerWinDot				= true;						// Keep the mission marker dot with a "win" message after mission is over
 	DMS_MissionMarkerLoseDot			= true;						// Keep the mission marker dot with a "lose" message after mission is over
@@ -111,20 +117,21 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_UsePredefinedMissionLocations	= false;					// Whether or not to use a list of pre-defined mission locations instead before attempting to find a random (valid) position. The positions will still be checked for validity. If none of the provided positions are valid, a random one will be generated.
 	DMS_PredefinedMissionLocations = 	[							// List of Preset/Predefined mission locations.
 											/* List of positions:
-											position1: [x_1,y_1,z_1],
-											position2: [x_2,y_2,z_2],
+											"x" and "y" are the center to a position on the map, and "r" is a radius about the center.
+											position1: [[x_1,y_1],r_1],
+											position2: [[x_2,y_2],r_2],
 											...
-											positionN: [x_N,y_N,z_N]
+											positionN: [[x_N,y_N],r_N]
 											*/
 
 										];
 
 	DMS_PredefinedMissionLocations_WEIGHTED = 	[					// List of Preset/Predefined mission locations WITH WEIGHTED CHANCES. This will NOT override "DMS_PredefinedMissionLocations", and everything from "DMS_PredefinedMissionLocations" will behave as though it has 1 weight per position.
 											/* List of arrays with position and weighted chance:
-											[[x_1,y_1,z_1], chance_1],
-											[[x_2,y_2,z_2], chance_2],
+											[[[x_1,y_1],r_1], weight_1],
+											[[[x_2,y_2],r_2], weight_2],
 											...
-											[[x_N,y_N,z_N], chance_N]
+											[[[x_N,y_N],r_N], weight_N]
 											*/
 
 										];
@@ -167,6 +174,7 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_HideBox							= false;					// "Hide" the box from being visible by players until the mission is completed.
 	DMS_EnableBoxMoving					= true;						// Whether or not to allow the box to move and/or be lifted by choppers.
 	DMS_SpawnBoxSmoke					= true;						// Spawn a smoke grenade on mission box upon misson completion during daytime
+	DMS_DefaultSmokeClassname 			= "SmokeShellPurple";		// Classname of the smoke you want to spawn.
 	DMS_SpawnBoxIRGrenade				= true;						// Spawn an IR grenade on mission box upon misson completion during nighttime
 	/*Crate/Box settings*/
 
@@ -284,6 +292,10 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											//"slums_objects"		//<--Example (already imported by default on Altis)
 										];
 
+	DMS_BasesToImportOnServerStart_3DEN = [								// Just like above, this defines bases to import on server startup. However, this uses the M3E 3DEN exports.
+											//"mybasename"
+										];
+
 	DMS_BanditMissionsOnServerStart =	[
 											//"construction"		//<-- Example
 										];
@@ -306,7 +318,7 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 
 
 /* AI Settings */
-	DMS_AI_Classname					= "O_recon_F";				// Since some of you wanted this...
+	DMS_AI_Classname					= "O_Soldier_unarmed_F";				// Since some of you wanted this...
 
 	DMS_AI_NamingType					= 0;						// This specifies the "naming scheme" for the AI. 0 corresponds with the default ArmA names; 1 means you want a DMS name (eg: [DMS BANDIT SOLDIER 123]); 2 means you want to generate a name from a list of first and last names (DMS_AI_FirstNames, DMS_AI_LastNames).
 	DMS_AI_FirstNames =					[							// List of "first names" that an AI can have. Only used when DMS_AI_NamingType = 2.
@@ -1218,6 +1230,9 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											"Exile_Item_CodeLock"
 										];
 	DMS_RareLootChance					= 10;						// Percentage Chance to spawn rare loot in any crate | Default: 10%
+	DMS_RareLootSpawnMagazines			= true;						//If spawned rare loot is weapon, spawn magazines for it too
+	DMS_RareLootMinMagazines			= DMS_MinimumMagCount;		//We can spawn different count of magazines for rare weapons
+	DMS_RareLootMaxMagazines			= DMS_MaximumMagCount;
 
 	// Vehicles
 	DMS_ArmedVehicles =					[							// List of armed vehicles that can spawn

@@ -1,5 +1,5 @@
 /*
-	Custom configs for Chernarus Isles.
+	Custom configs for Chernarus Summer.
 	Created by [FPS]kuplion.
 */
 
@@ -7,5 +7,5 @@
 
 DMS_MinDistFromWestBorder			= 750;
 DMS_MinDistFromEastBorder			= 2500;
-DMS_MinDistFromSouthBorder			= 2500;
+DMS_MinDistFromSouthBorder			= 3500;
 DMS_MinDistFromNorthBorder			= 1000;

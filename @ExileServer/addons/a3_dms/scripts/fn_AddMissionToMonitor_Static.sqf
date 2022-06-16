@@ -58,8 +58,8 @@
 		_difficulty,
 		_missionEvents,
 		[
-			_onSuccessScripts,			// (OPTIONAL) Array of code or string to be executed on mission completion (in addition to regular code). Each element should be an array in the form [_params, _code].
-			_onFailScripts,				// (OPTIONAL) Array of code or string to be executed on mission failure (in addition to regular code). Each element should be an array in the form [_params, _code].
+			_onSuccessScripts,			// (OPTIONAL) Code to be executed on mission completion (in addition to regular scripts). Should be of the form [_params, _code], or multiple elements with the same form.
+			_onFailScripts,				// (OPTIONAL) Same as above, except only executed on mission failure (in addition to regular scripts).
 			_onMonitorStart,			// (OPTIONAL) Code to run when the monitor starts to check the mission status. The passed parameter (_this) is the mission data array itself.
 			_onMonitorEnd				// (OPTIONAL) Code to run when the monitor is done with checking the mission status. The passed parameter (_this) is the mission data array itself.
 		]
@@ -91,7 +91,7 @@ exitWith
 	false;
 };
 
-private _onEndingScripts = if ((count _this)>11) then {_this select 11} else {[[],[],{},{}]};
+private _onEndingScripts = param [11, [[],[],{},{}], [[]], 4];
 
 
 try
@@ -123,7 +123,7 @@ try
 		throw format["_missionObjs |%1|",_missionObjs];
 	};
 
-	private _mines = if ((count _missionObjs)>3) then { _missionObjs param [3,[],[[]]] } else { [] };
+	private _mines = _missionObjs param [3,[],[[]]];
 
 	// Don't spawn a minefield if there is one already defined in _missionObjs.
 	if (DMS_SpawnMinefieldForEveryMission && {_mines isEqualTo []}) then
@@ -155,7 +155,7 @@ try
 	])
 	then
 	{
-		throw format["_onEndingScripts |%1|",_onEndingScripts];
+		//throw format["_onEndingScripts |%1|",_onEndingScripts];
 	};
 
 	private _unitCount = count (_units call DMS_fnc_GetAllUnits);

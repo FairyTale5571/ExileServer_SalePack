@@ -26,7 +26,7 @@ if (isNil "DMS_ConfigLoaded") exitWith
 // This code is NECESSARY for spawning persistent vehicles. DO NOT REMOVE THIS CODE UNLESS YOU KNOW WHAT YOU ARE DOING
 if !("isKnownAccount:DMS_PersistentVehicle" call ExileServer_system_database_query_selectSingleField) then
 {
-	"createAccount:DMS_PersistentVehicle:DMS_PersistentVehicle:0" call ExileServer_system_database_query_fireAndForget;
+	"createAccount:DMS_PersistentVehicle:DMS_PersistentVehicle" call ExileServer_system_database_query_fireAndForget;
 };
 
 
@@ -81,51 +81,6 @@ WEST setFriend[RESISTANCE,0];
 
 
 
-if ((!isNil "A3XAI_isActive") && {!DMS_ai_offload_Only_DMS_AI}) then
-{
-	diag_log 'DMS DETECTED A3XAI. Enabling "DMS_ai_offload_Only_DMS_AI"!';
-	DMS_ai_offload_Only_DMS_AI = true;
-};
-
-if ((isClass (configFile >> "CfgPatches" >> "Ryanzombies")) && {!DMS_ai_offload_Only_DMS_AI}) then
-{
-	diag_log 'DMS DETECTED RyanZombies. Enabling "DMS_ai_offload_Only_DMS_AI"!';
-	DMS_ai_offload_Only_DMS_AI = true;
-};
-
-if !(DMS_ai_offload_to_client) then
-{
-	DMS_ai_offloadOnUnfreeze = false;
-};
-
-if !(DMS_ai_allowFreezing) then
-{
-	DMS_ai_freezeOnSpawn = false;
-};
-
-
-
-DMS_A3_AllMarkerColors = [];
-for "_i" from 0 to ((count(configfile >> "CfgMarkerColors"))-1) do
-{
-	DMS_A3_AllMarkerColors pushBack (toLower (configName ((configfile >> "CfgMarkerColors") select _i)));
-};
-
-
-if !((toLower DMS_MissionMarkerWinDotColor) in DMS_A3_AllMarkerColors) then
-{
-	diag_log format ["DMS ERROR :: Unsupported color for DMS_MissionMarkerWinDotColor (""%1""). Switching color to ""ColorBlue"".",DMS_MissionMarkerWinDotColor];
-	DMS_MissionMarkerWinDotColor = "ColorBlue";
-};
-
-if !((toLower DMS_MissionMarkerLoseDotColor) in DMS_A3_AllMarkerColors) then
-{
-	diag_log format ["DMS ERROR :: Unsupported color for DMS_MissionMarkerLoseDotColor (""%1""). Switching color to ""ColorRed"".",DMS_MissionMarkerLoseDotColor];
-	DMS_MissionMarkerLoseDotColor = "ColorRed";
-};
-
-
-
 // Send Client Functions using compileFinal for security.
 publicVariable "DMS_CLIENT_fnc_spawnDynamicText";
 publicVariable "DMS_CLIENT_fnc_spawnTextTiles";
@@ -135,16 +90,6 @@ publicVariable "DMS_Version";
 
 
 format["DMS_Version: %1",DMS_Version] remoteExecCall ["diag_log", -2, "DMS_LogVersion_JIP_ID"];
-
-
-
-// Add the weighted predefined locations to the list of predefined locations
-{
-	for "_i" from 1 to (_x select 1) do
-	{
-		DMS_PredefinedMissionLocations pushBack (_x select 0);
-	};
-} forEach DMS_PredefinedMissionLocations_WEIGHTED;
 
 
 
@@ -217,6 +162,10 @@ if (DMS_ShowDifficultyColorLegend) then
 {
 	[_x] call DMS_fnc_ImportFromM3E_Static;			// Spawn all of the bases that are supposed to be spawned on server startup.
 } forEach DMS_BasesToImportOnServerStart;
+
+{
+	[_x] call DMS_fnc_ImportFromM3E_3DEN_Static;	// M3E 3DEN variant.
+} forEach DMS_BasesToImportOnServerStart_3DEN;
 
 
 {

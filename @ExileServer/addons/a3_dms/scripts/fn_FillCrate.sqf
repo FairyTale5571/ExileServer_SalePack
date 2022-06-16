@@ -104,18 +104,12 @@ if !(_crate getVariable ["DMS_CrateGodMode",DMS_GodmodeCrates]) then
 {
 	_crate allowDamage true;
 };
-if(dynamicSimulationSystemEnabled)then
-{
-	_crate enableDynamicSimulation true;
-}
-else
-{
-	_crate enableSimulationGlobal true;
-};
 if (_crate getVariable ["DMS_CrateEnableRope",DMS_EnableBoxMoving]) then
 {
 	_crate enableRopeAttach true;
 };
+
+_crate enableSimulationGlobal true;
 
 
 if ((_lootValues isEqualType []) && {!((_lootValues select 1) isEqualType {})}) then
@@ -292,14 +286,30 @@ if (DMS_RareLoot) then
 		};
 
 	// (Maybe) Add rare loot
-	if(random 100 < _rareLootChance) then
+	
+	for "_i" from 1 to DMS_RareLootAmount do
 	{
-		for "_i" from 1 to DMS_RareLootAmount do
+		if((random 100) < _rareLootChance) then
 		{
 			_item = selectRandom DMS_RareLootList;
 			if (_item isEqualType "") then
 			{
+				private _ammo = "";
+				
+				if (DMS_RareLootSpawnMagazines) then
+				{
+					_ammo = _item call DMS_fnc_selectMagazine;
+				};
+					
 				_item = [_item,1];
+				
+				if (_ammo isEqualType "") then
+				{
+					if !(_ammo in ["Exile_Magazine_Swing","Exile_Magazine_Boing","Exile_Magazine_Swoosh", ""]) then
+					{
+						_crate addItemCargoGlobal [_ammo, (DMS_RareLootMinMagazines + floor(random DMS_RareMagRange))];
+					};
+				};
 			};
 			_crate addItemCargoGlobal _item;
 		};
@@ -309,9 +319,9 @@ if (DMS_RareLoot) then
 // You can choose if you want to enable/disable smoke individually using setVariable.
 if (_crate getVariable ["DMS_AllowSmoke", true]) then
 {
-	if (DMS_SpawnBoxSmoke && {sunOrMoon == 1}) then
+	if (DMS_SpawnBoxSmoke && {sunOrMoon isEqualTo 1}) then
 	{
-		private _marker = "SmokeShellPurple" createVehicle getPosATL _crate;
+		private _marker = (_crate getVariable ["DMS_CrateSmokeClassname", DMS_DefaultSmokeClassname]) createVehicle getPosATL _crate;
 		_marker setPosATL (getPosATL _crate);
 		_marker attachTo [_crate,[0,0,0]];
 	};
@@ -323,3 +333,10 @@ if (_crate getVariable ["DMS_AllowSmoke", true]) then
 		_marker attachTo [_crate, [0,0,0.5]];
 	};
 };
+
+_crate setVariable
+[
+	"ExileMoney",
+	(_crate getVariable ["ExileMoney", 0]) + (_crate getVariable ["DMS_CrateMoney", 0]),
+	true
+];
