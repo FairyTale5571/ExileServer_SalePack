@@ -21,7 +21,7 @@ switch (_action) do {
 	case "rearmall": {
 		private ["_cost"];
 		_cost = 0;
-		_cost = [_vehicle] call Bones_fnc_getReloadCost;
+		_cost = [] call Bones_fnc_getReloadCost;
 		_exilew = player getVariable ["ExileMoney", 0];
 		if (_exilew <_cost) exitWith {["ErrorTitleOnly", ["You don't have enough money!"]] call ExileClient_gui_toaster_addTemplateToast;};
 		
@@ -41,9 +41,9 @@ switch (_action) do {
 		_rearmAll ctrlenable false;
 		_reloadValueDisplay = 0;
 		_reloadCost = (findDisplay 9123 displayCtrl 1006);
-		_reloadCost ctrlSetText (format ["%1 poptabs", _reloadValueDisplay]);
+		_reloadCost ctrlSetText (format ["%1 Poptabs", _reloadValueDisplay]);
 		
-		["SuccessTitleOnly", format ["Reload of All Turrets Complete, Total Cost was %1 Poptabs", _cost]] call ExileClient_gui_toaster_addTemplateToast;		
+		["SuccessTitleOnly", format ["Reload of All Items Complete, Total Cost was %1 Poptabs", _cost]] call ExileClient_gui_toaster_addTemplateToast;		
 	};
 	case "repairall": { 
 		_cost = [] call Bones_fnc_getRepairableCosts;
@@ -73,67 +73,85 @@ switch (_action) do {
 	case "repair_rearm_opts": { 
 	
 		_optData = parseSimpleArray _actionData;
-
 		_actionType = _optData select 0;
 
 		switch (_actionType) do {
-			case "Reload": {
-				_turretPath = _optData select 1;
-				_pylonRun = _optData select 2;
-				_magClass = _optData select 3;
-				_ammoCount = _optData select 4;
-				_ammoDiff = _optData select 5;
-				_totalMags = _optData select 6;
-				_sum = _optData select 7;
+			case "Reload": { 
+				_items = _optData select 1;
+				_price = _optData select 2;
+				_turretPath = _optData select 3;
+				_bulletAmount = _optData select 4;
+				_pylonIndex = _optData select 5;
 
-				/////// ПРОВЕРКА
 				_exilew = player getVariable ["ExileMoney", 0];
-				if (_exilew <_sum) exitWith {["ErrorTitleOnly", ["You don't have enough money!"]] call ExileClient_gui_toaster_addTemplateToast;};
-
-				/////// ПЕРЕЗАРЯДКА
-				private ["_maxMagAmmo", "_magsAddCount"];
-				_maxMagAmmo = (configFile >> "CfgMagazines" >> _magClass >> "count") call BIS_fnc_getCfgData;
-				_magsAddCount = floor (_ammoDiff / _maxMagAmmo);
-
-				if (_ammoDiff > 0) then {
-					if (_pylonRun > 0) then {
+				if (_exilew <_price) exitWith {["ErrorTitleOnly", ["You don't have enough money!"]] call ExileClient_gui_toaster_addTemplateToast;};
+				
+				["Reload.ogg", _Vehicle, 30] call Bones_fnc_playSounds;
+				
+				if (["120mm",_items] call BIS_fnc_inString || ["125mm",_items] call BIS_fnc_inString || ["105mm",_items] call BIS_fnc_inString || ["L30A1_Cannon",_items] call BIS_fnc_inString || ["2A46",_items] call BIS_fnc_inString || ["100mm",_items] call BIS_fnc_inString) then
+				{
+					_vehicle removeMagazinesTurret [_items, _turretPath];
+					_vehicle addMagazineTurret [_items,_turretPath,_bulletAmount];
+				} else
+				{
+					//DO THIS IF SMOKE
+					if (["smoke",_items] call BIS_fnc_inString) then
+					{
+						_vehicle removeMagazinesTurret [_items, _turretPath];
+						_vehicle removeWeaponTurret ["SmokeLauncher", _turretPath];
+						_vehicle addMagazineTurret [_items,_turretPath,_bulletAmount];
+						_vehicle addWeaponTurret ["SmokeLauncher", _turretPath];
+					} else
+					{
+						//DO THIS IF CHAFF
+						if (["chaff",_items] call BIS_fnc_inString) then
 						{
-							private ["_infoClass", "_infoPylonIndex"];
-							_infoClass = _x select 3;
-							_infoPylonIndex = _x select 0;
-							if (_infoClass == _magClass) then {
-								_vehicle setAmmoOnPylon [_infoPylonIndex, _magMaxAmmoCount];
-								// systemChat format ["Mag %1 setAmmoOnPylon %2 by max: %3",_magClass, _infoPylonIndex, _magMaxAmmoCount];
+							_vehicle removeMagazinesTurret [_items, _turretPath];
+							_vehicle removeWeaponTurret ["CMFlareLauncher", _turretPath];
+							_vehicle addMagazineTurret [_items,_turretPath,_bulletAmount];
+							_vehicle addWeaponTurret ["CMFlareLauncher", _turretPath];
+						} else
+						{
+							//DO THIS IF PYLON
+							if (["pylon",_items] call BIS_fnc_inString) then
+							{
+								_vehicle setAmmoOnPylon [_pylonIndex,_bulletAmount];
+							} else
+							{
+								//FOR EVERYTHING ELSE
+								_maxMagAmmo = (configFile >> "CfgMagazines" >> _items >> "count") call BIS_fnc_getCfgData;
+								_vehicle addMagazineTurret [_items, _turretPath, _bulletAmount];	
+								_numMags = floor (_bulletAmount / _maxMagAmmo);
+								_vehicle removeMagazinesTurret [_items, _turretPath];
+								while {_numMags > 0} do
+								{
+									_vehicle addMagazineTurret [_items, _turretPath];
+									_numMags = _numMags - 1;
+								};
 							};
-						} forEach _pylonsInfo;
-					} else {
-						_vehicle removeMagazinesTurret [_magClass, _turretPath];
-						for "_i" from 1 to _totalMags do {
-							_vehicle addMagazineTurret [_magClass,_turretPath,_maxMagAmmo];
-							// systemChat format ["Added magaz %1 to turret %2 | ammo in mag:  %3",_magClass, _turretPath, _maxMagAmmo];
 						};
 					};
 				};
-
-				///////// ОПЛАТА
-				if(_sum > 0 && isTradeEnabled) then {
-						takegive_poptab = [player,_sum,true];
+				
+				if(_price > 0 && isTradeEnabled)then{
+						takegive_poptab = [player,_price,true];
 						publicVariableServer "takegive_poptab";
 				};
 				[] call Bones_fnc_getReloadable;
-				_playerPoptabs = _exilew - _sum;
+				_playerPoptabs = _exilew - _price;
 				_poptabs = (findDisplay 9123 displayCtrl 1001);
-				_poptabs ctrlSetText (format ["%1 Пробок", _playerPoptabs]);
-				_reloadValueDisplay = [_vehicle] call Bones_fnc_getReloadCost;
+				_poptabs ctrlSetText (format ["%1 poptabs", _playerPoptabs]);
+				_reloadValueDisplay = []call Bones_fnc_getReloadCost;
 				_reloadCost = (findDisplay 9123 displayCtrl 1006);
-				_reloadCost ctrlSetText (format ["%1 Пробок", _reloadValueDisplay]);
+				_reloadCost ctrlSetText (format ["%1 Poptabs", _reloadValueDisplay]);
 				if(_reloadValueDisplay == 0) then
 				{
-					_rearmAll = (findDisplay 9123 displayCtrl 1605);
-					_rearmAll ctrlenable false;
+				_rearmAll = (findDisplay 9123 displayCtrl 1605);
+				_rearmAll ctrlenable false;
 				};
 				
-				["SuccessTitleOnly", format ["Reload of weapon %1 complete, Total Cost was %2 Poptabs", _magClass, _sum]] call ExileClient_gui_toaster_addTemplateToast;
+				["SuccessTitleOnly", format ["Reload of weapon complete, Total Cost was %2 Poptabs", _items, _price]] call ExileClient_gui_toaster_addTemplateToast;
+
 			};
 			case "Repair": {
 				_items = _optData select 1;
@@ -167,6 +185,8 @@ switch (_action) do {
 				["SuccessTitleOnly", format ["Repair of item complete, Total Cost was %1 Poptabs", _price]] call ExileClient_gui_toaster_addTemplateToast;				
 			};
 		};
+
+
 	};
 	case "refuel": { 
 		_maxFuelAmount = getnumber (configfile >> "cfgvehicles" >> (typeof _vehicle) >> "fuelCapacity");

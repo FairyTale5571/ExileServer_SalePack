@@ -15,7 +15,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.254375;
 			h = safeZoneH * 0.38333334;
 			style = 64;
-			text = "Опции для перезарядки или ремонта";
+			text = "Repair or Reload Individual Items....";
 			colorBackground[] = {0.8,0.9373,0.1176,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
@@ -31,7 +31,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.431875;
 			h = safeZoneH * 0.57222223;
 			style = 64;
-			text = "Центр Сервисного обслуживания";
+			text = "Service Centre";
 			colorBackground[] = {0,0,0,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaSemiBold";
@@ -82,7 +82,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.1225;
 			h = safeZoneH * 0.03666667;
 			style = 0+2;
-			text = "Перезарядка..";
+			text = "Reload Options..";
 			borderSize = 0;
 			colorBackground[] = {0.949,0.949,0.949,1};
 			colorBackgroundActive[] = {0.302,0.502,0.302,1};
@@ -114,7 +114,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.1225;
 			h = safeZoneH * 0.03666667;
 			style = 0+2;
-			text = "Ремонт..";
+			text = "Repair Options";
 			borderSize = 0;
 			colorBackground[] = {0.949,0.949,0.949,1};
 			colorBackgroundActive[] = {0.302,0.502,0.302,1};
@@ -146,7 +146,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.415625;
 			h = safeZoneH * 0.03666667;
 			style = 0+2;
-			text = "Выход";
+			text = "Exit Service Centre";
 			borderSize = 0;
 			colorBackground[] = {0.949,0.949,0.949,1};
 			colorBackgroundActive[] = {0.302,0.502,0.302,1};
@@ -178,7 +178,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "XX пробок";
+			text = "XX Poptabs";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {0.902,0.902,0.302,1};
 			font = "PuristaSemiBold";
@@ -194,7 +194,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "Цена заправки:";
+			text = "Refuel Cost:";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
@@ -210,7 +210,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "XX пробок";
+			text = "XX Poptabs";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {0.902,0.902,0.302,1};
 			font = "PuristaSemiBold";
@@ -226,7 +226,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.125625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "В вашем инвентаре:";
+			text = "Current Poptabs:";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
@@ -242,7 +242,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.03666667;
 			style = 0+2;
-			text = "Перезарядить ВСЕ";
+			text = "Reload All";
 			borderSize = 0;
 			colorBackground[] = {0.949,0.949,0.949,1};
 			colorBackgroundActive[] = {0.302,0.502,0.302,1};
@@ -274,7 +274,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.03666667;
 			style = 0+2;
-			text = "Заправка";
+			text = "Refuel";
 			borderSize = 0;
 			colorBackground[] = {0.949,0.949,0.949,1};
 			colorBackgroundActive[] = {0.302,0.502,0.302,1};
@@ -306,7 +306,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.125625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "Транспортное средство:";
+			text = "Current Vehicle:";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
@@ -322,7 +322,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "Ожидаем..";
+			text = "Waiting..";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {0.902,0.902,0.302,1};
 			font = "PuristaSemiBold";
@@ -338,7 +338,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.03666667;
 			style = 0+2;
-			text = "Починить ВСЕ";
+			text = "Repair All";
 			borderSize = 0;
 			colorBackground[] = {0.949,0.949,0.949,1};
 			colorBackgroundActive[] = {0.302,0.502,0.302,1};
@@ -370,7 +370,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "Стоимость перезарядки:";
+			text = "Reload Cost:";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
@@ -386,7 +386,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "ВЫберете опцию..";
+			text = "Select Option..";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {0.902,0.902,0.302,1};
 			font = "PuristaSemiBold";
@@ -402,7 +402,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "Стоимость ремонта:";
+			text = "Repair Cost:";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
@@ -418,7 +418,7 @@ class Bones_Service_Point
 			w = safeZoneW * 0.145625;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "XX пробок";
+			text = "XX Poptabs";
 			colorBackground[] = {0.6627,0.3294,0.8941,0};
 			colorText[] = {0.902,0.902,0.302,1};
 			font = "PuristaSemiBold";

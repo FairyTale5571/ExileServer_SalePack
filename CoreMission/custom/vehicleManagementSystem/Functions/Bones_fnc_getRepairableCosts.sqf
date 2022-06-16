@@ -230,4 +230,33 @@ if (_overallDamage > 0) then
 	_totalRepairPrice = _totalRepairPrice + _otherPrice;
 };
 
+///////////track Menu
+
+_trackRepairList = [];
+
+{
+	_track = ["track", _x] call bis_fnc_instring;
+	if(_track) then
+	{
+		_damage = _vehicle getHitPointDamage _x;
+		if (_damage > 0) then 
+		{
+			_trackRepairList pushback _x;
+		};
+	};
+} forEach _hitpointNames;
+
+//track Repair Menu
+_trackPrice = 0;
+{
+_trackPriceTemp = (getNumber (missionConfigFile >> "CfgExileArsenal" >> _x >> "price"));
+_trackPrice = _trackPrice + _trackPriceTemp;
+} forEach vmstrackRepairItems;
+{
+	_damage = _vehicle getHitPointDamage _x;
+	_trackPriceThis = 0;
+	_trackPriceThis = round(_trackPrice * _damage);
+	_totalRepairPrice = _totalRepairPrice + _trackPriceThis;
+} forEach _trackRepairList;
+
 _totalRepairPrice

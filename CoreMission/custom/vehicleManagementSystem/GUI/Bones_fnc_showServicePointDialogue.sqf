@@ -25,7 +25,7 @@ _vehicleDisplay = gettext (configfile >> "CfgVehicles" >> typeof _vehicle >> "di
 _vehicleType = (findDisplay 9123 displayCtrl 1004);
 _vehicleType ctrlSetText _vehicleDisplay;
 
-_reloadValueDisplay = [_vehicle] call Bones_fnc_getReloadCost;
+_reloadValueDisplay = []call Bones_fnc_getReloadCost;
 _reloadCost = (findDisplay 9123 displayCtrl 1006);
 _reloadCost ctrlSetText (format ["%1 poptabs", _reloadValueDisplay]);
 if(_reloadValueDisplay == 0) then

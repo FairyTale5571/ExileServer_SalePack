@@ -32,61 +32,8 @@ _weapArray = [];
 	_weapArray pushBack [_x, 1]
 } forEach (getPylonMagazines _vehicle);
 
+_vehicleMags = _vehicle call Bones_fnc_getVehicleLoadout;
 
-private _currentLoadout = _vehicle call Bones_fnc_getVehicleLoadout;
-
-{
-	private ["_rearmData", "_sum", "_index", "_menuItem", "_displayName", "_cost"];
-
-	_turretPath = _x select 0;
-	_pylonRun = _x select 1;
-	_magClass = _x select 2;
-	_ammoCount = _x select 3;
-	_ammoDiff = _x select 4;
-	_totalMags = _X select 5;
-	_rearmData = [];
-
-	_cost = 0;
-
-	if (_ammoDiff > 0) then {
-
-		//// НАИМЕНОВАНИЕ
-		_displayName = getText(configFile >> "CfgMagazines" >> _magClass >> "displayName");
-		if (_displayName == "") then {_displayName = _magClass;};
-		
-		//// ЦЕНА
-		{
-			private ["_configClass", "_configCost"];
-			_configClass = _x select 0;
-			_configCost = _x select 1;
-			if (_magClass == _configClass) exitWith {
-				_cost = _configCost;
-			};
-		} forEach vmsAmmoCost;		
-
-		if (_cost == 0) then {_cost = vmsdefaultAmmoCost;};
-	
-		//// СУММА
-		_sum = _ammoDiff * _cost;
-		_menuItem = format ["%1:  %2 [%3 Poptabs]", _displayName, _ammoDiff, _sum];
-
-		_index = _crtl lbAdd _menuItem;
-		_reArmData pushback _action;
-		_reArmData pushback _turretPath;
-		_reArmData pushback _pylonRun;
-		_reArmData pushback _magClass;
-		_reArmData pushback _ammoCount;
-		_reArmData pushback _ammoDiff;
-		_reArmData pushback _totalMags;
-		_reArmData pushback _sum;
-		_strreArmData = str _reArmData;
-		_crtl lbSetData [_index, _strreArmData];
-	};
-
-} forEach _currentLoadout;
-
-
-_vehicleMags = [];
 {
 	private ["_cost","_turretPath", "_bulletCost", "_maxMag", "_menuItem", "_magClass", "_displayName", "_ammoCount", "_magMaxAmmoCount", "_maxBullets", "_numMagsToLoad", "_currentMags", "_loadedMagCount", "_currentMagToLoad", "_currentMagCost", "_menuItemAndDetails"];
 	_turretPath = _x select 0;
@@ -126,7 +73,6 @@ _vehicleMags = [];
 			_numMagsToLoad = _maxBullets - _ammoCount;
 			_currentMagCost = _numMagsToLoad * _bulletCost;
 			_cost = _currentMagCost;
-			// systemChat format ["_magClass cost: (%1 - %2) * %3 = %4", _maxBullets, _ammoCount, _bulletCost, _currentMagCost];
 		} else
 		{
 			_currentMags = floor (_ammoCount / _magMaxAmmoCount);

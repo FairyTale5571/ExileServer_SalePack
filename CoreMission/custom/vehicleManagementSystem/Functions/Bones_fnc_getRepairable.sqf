@@ -374,3 +374,52 @@ if (_overallDamage > 0) then
 	_repairlist pushback _otherDamageItems;
 	_totalRepairPrice = _totalRepairPrice + _otherPrice;
 };
+
+///////////Track Menu
+
+_trackRepairList = [];
+
+{
+	_track = ["track", _x] call bis_fnc_instring;
+	if(_track) then
+	{
+		_damage = _vehicle getHitPointDamage _x;
+		if (_damage > 0) then 
+		{
+			_trackRepairList pushback _x;
+		};
+	};
+} forEach _hitpointNames;
+
+//Track Repair Menu
+_trackPrice = 0;
+{
+_trackPriceTemp = (getNumber (missionConfigFile >> "CfgExileArsenal" >> _x >> "price"));
+_trackPrice = _trackPrice + _trackPriceTemp;
+} forEach vmstrackRepairItems;
+{
+	_trackPriceThis = 0;
+	_repairData = [];
+	_tempLabel = _x;
+	_damage = _vehicle getHitPointDamage _x;
+	_damagePerc = round(_damage * 100);
+	_trackPriceThis = round(_trackPrice * (_damagePerc / 100));
+	if (_x == "HitLTrack") then {_tempLabel = format ["Repair Left Track (%1%2 damage) - %3 %4", _damagePerc, "%", _trackPriceThis, _valueType]};
+	if (_x == "HitRTrack") then {_tempLabel = format ["Repair Right Track (%1%2 damage) - %3 %4", _damagePerc, "%", _trackPriceThis, _valueType]};
+	if !(_tempLabel == "error") then
+		{
+			_repairData pushback _action;
+			_repairData pushback [_x];
+			_repairData pushback _trackPriceThis;
+			_strRepairData = str _repairData;
+			_index = _crtl lbAdd _tempLabel;
+			_crtl lbSetData [_index, _strRepairData];
+			_repairlist pushback _x;
+			_totalRepairPrice = _totalRepairPrice + _trackPriceThis;
+		};
+} forEach _trackRepairList;
+
+if (count _repairlist == 0) then
+{
+_crtl lbAdd "Nothing to Repair... Go get shot at by something!";
+};
