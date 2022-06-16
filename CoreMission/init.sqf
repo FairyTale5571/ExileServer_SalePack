@@ -22,7 +22,7 @@ if (isDedicated || isServer) then {
 		_veh setVariable ["deployedVehicle",true,true];
 	};
 };
-
+Bones_fnc_getVehicleLoadout = compileFinal (preprocessFileLineNumbers "Custom\ammoSave\Bones_fnc_getVehicleLoadout.sqf");
 Bones_fnc_playSounds = compileFinal (preprocessFileLineNumbers "Custom\vehicleManagementSystem\Functions\Bones_fnc_playSounds.sqf");
 Bones_fnc_showServicePointDialogue = compileFinal (preprocessFileLineNumbers "Custom\vehicleManagementSystem\GUI\Bones_fnc_showServicePointDialogue.sqf");
 Bones_fnc_getVehicleLoadout = compileFinal (preprocessFileLineNumbers "Custom\vehicleManagementSystem\Functions\Bones_fnc_getVehicleLoadout.sqf");
