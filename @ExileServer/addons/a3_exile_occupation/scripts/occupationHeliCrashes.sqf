@@ -35,11 +35,23 @@ for "_i" from 1 to SC_numberofHeliCrashes do
 		_validspot	= true;
 	
 		//Check if near another heli crash site
-		_nearOtherCrash = (nearestObjects [_position,["Land_UWreck_MV22_F"],750]) select 0;	
+		_nearOtherCrash = (nearestObjects [_position,[
+							// Trucks
+							"Land_Wreck_BMP2_F",
+							"Land_Wreck_HMMWV_F",
+							"Land_Wreck_BRDM2_F",
+							"Land_Wreck_Ural_F",
+							// Tanks
+							"Land_Wreck_Slammer_F",
+							// Helis
+							"Land_Wreck_Heli_Attack_02_F",
+							"Land_UWreck_Heli_Attack_02_F",
+							// VTOL
+							"Land_UWreck_MV22_F"],750]) select 0;	
 		if (!isNil "_nearOtherCrash") then { _validspot = false; };
 
 		//Check if near another loot crate site
-		_nearOtherCrate = (nearestObjects [_position,["CargoNet_01_box_F"],500]) select 0;	
+		_nearOtherCrate = (nearestObjects [_position,["Exile_Container_SupplyBox"],500]) select 0;	
 		if (!isNil "_nearOtherCrate") then { _validspot = false; };
 				
 	};	
@@ -47,7 +59,20 @@ for "_i" from 1 to SC_numberofHeliCrashes do
 	_logDetail = format['[OCCUPATION:HeliCrashes] Crash %1 : Location %2',_i,_position];
     [_logDetail] call SC_fnc_log;
     
-	_helicopter = "Land_UWreck_MV22_F";
+	_helicopter = selectRandom [
+							// Trucks
+							"Land_Wreck_BMP2_F",
+							"Land_Wreck_HMMWV_F",
+							"Land_Wreck_BRDM2_F",
+							"Land_Wreck_Ural_F",
+							// Tanks
+							"Land_Wreck_Slammer_F",
+							// Helis
+							"Land_Wreck_Heli_Attack_02_F",
+							"Land_UWreck_Heli_Attack_02_F",
+							// VTOL
+							"Land_UWreck_MV22_F"
+							];
 	_vehHeli = _helicopter createVehicle [0,0,0];
 	
 	_effect = "test_EmptyObjectForSmoke";  
@@ -60,6 +85,7 @@ for "_i" from 1 to SC_numberofHeliCrashes do
 	_heliFire = _effect createVehicle (position _vehHeli);   
 	_heliFire attachto [_vehHeli, [0,0,-1]];
 	_vehHeli setPos _position;
+	_vehHeli setVectorUp surfaceNormal position _vehHeli;
 	
 	if (SC_SpawnHeliCrashGuards) then
 	{
@@ -106,7 +132,7 @@ for "_i" from 1 to SC_numberofHeliCrashes do
 				}foreach units _initialGroup;  		
 				deleteGroup _initialGroup;
 				
-				[_group, _spawnPosition, 100] call bis_fnc_taskPatrol;
+				[_group, _spawnPosition, 25] call bis_fnc_taskPatrol;
 				_group setBehaviour "STEALTH";
 				_group setCombatMode "RED";
 
@@ -118,6 +144,19 @@ for "_i" from 1 to SC_numberofHeliCrashes do
 	{
 		_logDetail = format ["[OCCUPATION:HeliCrash]::  Creating HeliCrash %2 at %1 with no guards",_position,_i];
 		[_logDetail] call SC_fnc_log;	
+	};
+
+	_mapMarkerName = format ["SC_helicrash_marker_%1", _i];
+	
+	if (SC_HeliCrashMarkers) then 
+	{		
+		_heli_marker = createMarker [ format ["SC_helicrash_marker_%1", _i], _position];
+		_heli_marker setMarkerColor "ColorOrange";
+		_heli_marker setMarkerAlpha 1;
+		_heli_marker setMarkerText "Heli Crash";
+		_heli_marker setMarkerType "c_air";
+		_heli_marker setMarkerBrush "Vertical";
+		_heli_marker setMarkerSize [(1), (1)];
 	};
 		
 	_positionOfBox = [_position,3,10,1,0,10,0] call BIS_fnc_findSafePos;

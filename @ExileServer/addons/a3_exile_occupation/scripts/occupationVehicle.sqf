@@ -30,7 +30,7 @@ if((_aiActive > _maxAIcount) && !SC_occupyLandVehicleIgnoreCount) exitWith
 
 SC_liveVehicles = count(SC_liveVehiclesArray);
 
-if(SC_liveVehicles >= SC_maxNumberofVehicles) exitWith 
+if (SC_liveVehicles >= SC_maxNumberofVehicles) exitWith 
 {
     _logDetail = format['[OCCUPATION:Vehicle] End check %1 currently active (max %2) @ %3',SC_liveVehicles,SC_maxNumberofVehicles,time]; 
     [_logDetail] call SC_fnc_log;  
@@ -186,7 +186,7 @@ if(_vehiclesToSpawn > 0) then
 				
 				if(SC_occupyVehiclesLocked) then 
 				{
-					_vehicle lock 2;			
+					_vehicle lock 3;			
 					_vehicle setVehicleLock "LOCKED";
 					_vehicle setVariable ["ExileIsLocked", 1, true];            
 				}

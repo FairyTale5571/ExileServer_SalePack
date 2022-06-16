@@ -119,7 +119,7 @@ while {true} do
             _transport setFuel 1;
             _transport setDamage 0;
             _transport engineOn true;
-            _transport flyInHeight 300;    
+            _transport flyInHeight 500;    
         }
         else
         {

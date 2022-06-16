@@ -310,7 +310,8 @@ _livePlayers = [];
 	};
 }forEach playableUnits;
 
-_livePlayers call BIS_fnc_arrayShuffle;
+//_livePlayers call BIS_fnc_arrayShuffle; //Apparently this is broken in Arma..
+_livePlayers = _livePlayers call ExileClient_util_array_shuffle; // But Exile can still work it's magic!!
 
 // Find a player to hunt
 {
@@ -341,7 +342,9 @@ _livePlayers call BIS_fnc_arrayShuffle;
 	_lastHunted = _x getVariable "SC_lastHunted";	
 	if(isNil "_lastHunted") then
 	{
-		_lastHunted = -5000;
+		//_lastHunted = -5000;
+		_lastHunted =  time;   
+		_selectedPlayer setVariable ["SC_lastHunted",time];
 	};
 	
 	if((time - _lastHunted) < SC_randomSpawnFrequency) exitWith

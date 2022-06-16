@@ -3,7 +3,7 @@
 _logDetail  = format["%1 %2",SC_occupationVersion,_this select 0];
 _fileName   = _this select 1;
 
-if(isNil "_fileName") then { _fileName = "A3_EXILE_OCCUPATION"; };
+if(isNil "_fileName") then { _fileName = "OCCUPATION"; };
 
 if(SC_infiSTAR_log && !(isNil "INFISTARVERSION")) then
 {
