@@ -1,4 +1,3 @@
-[] execVM "AVS\AVS_fnc_init.sqf";							//Re-arm,refuel etc.
 [] execVM "Custom\EnigmaRevive\init.sqf";					//Revive system
 [] ExecVM "custom\restartWarnings\sqf\initLocal.sqf";		//Restarts
 [] ExecVM "custom\scripts\fn_killMsg.sqf";					
@@ -22,4 +21,14 @@ if (isDedicated || isServer) then {
 		_veh = createVehicle[_vehicle, _parameters2 , [] ,0 , "NONE"];
 		_veh setVariable ["deployedVehicle",true,true];
 	};
+};
+Bones_fnc_vmsChecks = compileFinal (preprocessFileLineNumbers "Custom\vehicleManagementSystem\Functions\Bones_fnc_vmsChecks.sqf");
+vmsConfig = compileFinal (preprocessFileLineNumbers "Custom\vehicleManagementSystem\vmsConfig.sqf");
+[] call vmsConfig;
+[] execVM "Custom\vehicleManagementSystem\Functions\takegive_poptab_init.sqf";
+[] execVM "Custom\vehicleManagementSystem\Functions\Bones_fnc_markServicePoints.sqf";
+if (!isServer)  then 
+{
+[] execVM "Custom\vehicleManagementSystem\functions\Bones_fnc_vspInRange.sqf";
+[] execVM "Custom\vehicleManagementSystem\functions\Bones_fnc_disableDefaultRefuel.sqf";
 };

@@ -34,6 +34,15 @@ forEach
 	['XG_DragPlayer','custom\scripts\XG_DragPlayer.sqf'],
 	['Atlas_fnc_SpawnBike','custom\scripts\fn_deploy_bike.sqf'],
 	['ExileClient_ClaimVehicles_network_claimRequestSend', 'custom\client_code\ExileClient_ClaimVehicles_network_claimRequestSend.sqf'],
+
+	["Bones_fnc_playSounds", "custom\vehicleManagementSystem\Functions\Bones_fnc_playSounds.sqf"],
+	["Bones_fnc_showServicePointDialogue", "custom\vehicleManagementSystem\GUI\Bones_fnc_showServicePointDialogue.sqf"],
+	["Bones_fnc_getVehicleLoadout", "custom\vehicleManagementSystem\Functions\Bones_fnc_getVehicleLoadout.sqf"],
+	["Bones_fnc_getReloadable", "custom\vehicleManagementSystem\Functions\Bones_fnc_getReloadable.sqf"],
+	["Bones_fnc_performAction", "custom\vehicleManagementSystem\Functions\Bones_fnc_performAction.sqf"],
+	["Bones_fnc_getReloadCost", "custom\vehicleManagementSystem\Functions\Bones_fnc_getReloadCost.sqf"],
+	["Bones_fnc_getRepairable", "custom\vehicleManagementSystem\Functions\Bones_fnc_getRepairable.sqf"],
+	["Bones_fnc_getRepairableCosts", "custom\vehicleManagementSystem\Functions\Bones_fnc_getRepairableCosts.sqf"],
 	
 	['ExileClient_MostWanted_Dialog_acceptContract', 'MostWanted_Client\functions\ExileClient_MostWanted_Dialog_acceptContract.sqf'],
     ['ExileClient_MostWanted_Dialog_addBounty', 'MostWanted_Client\functions\ExileClient_MostWanted_Dialog_addBounty.sqf'],
