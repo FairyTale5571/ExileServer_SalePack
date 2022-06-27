@@ -43,6 +43,10 @@ forEach
 	["Bones_fnc_getReloadCost", "custom\vehicleManagementSystem\Functions\Bones_fnc_getReloadCost.sqf"],
 	["Bones_fnc_getRepairable", "custom\vehicleManagementSystem\Functions\Bones_fnc_getRepairable.sqf"],
 	["Bones_fnc_getRepairableCosts", "custom\vehicleManagementSystem\Functions\Bones_fnc_getRepairableCosts.sqf"],
+
+	["ExileClient_object_vehicle_getInteractionName", "custom\client_code\ExileClient_object_vehicle_getInteractionName.sqf"],
+	["ExileClient_object_vehicle_moveInSeat", "custom\client_code\ExileClient_object_vehicle_moveInSeat.sqf"],
+	["ExileClient_object_vehicle_checkForDLCAndSeat", "custom\client_code\ExileClient_object_vehicle_checkForDLCAndSeat.sqf"],
 	
 	['ExileClient_MostWanted_Dialog_acceptContract', 'MostWanted_Client\functions\ExileClient_MostWanted_Dialog_acceptContract.sqf'],
     ['ExileClient_MostWanted_Dialog_addBounty', 'MostWanted_Client\functions\ExileClient_MostWanted_Dialog_addBounty.sqf'],

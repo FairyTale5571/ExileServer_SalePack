@@ -34,6 +34,12 @@ ExileClient_gui_constructionMode_update = 				"custom\client_code\ExileClient_gu
 ExileClient_gui_hud_event_onKeyUp = 					"custom\client_code\ExileClient_gui_hud_event_onKeyUp.sqf";
 ExileClient_construction_thread = 						"custom\client_code\ExileClient_construction_thread.sqf";
 
+//Unlock_DLC_Vehicles
+ExileClient_gui_interactionMenu_hook = "custom\client_code\ExileClient_gui_interactionMenu_hook.sqf";
+ExileClient_object_vehicle_checkForDLCAndSeat = "custom\client_code\ExileClient_object_vehicle_checkForDLCAndSeat.sqf";
+ExileClient_object_vehicle_getInteractionName = "custom\client_code\ExileClient_object_vehicle_getInteractionName.sqf";
+ExileClient_object_vehicle_moveInSeat = "custom\client_code\ExileClient_object_vehicle_moveInSeat.sqf";
+
 ExileClient_object_player_death_forceRespawn = 			"custom\client_code\ExileClient_object_player_death_forceRespawn.sqf";
 ExileClient_action_execute = 							"custom\client_code\ExileClient_action_execute.sqf";
 
