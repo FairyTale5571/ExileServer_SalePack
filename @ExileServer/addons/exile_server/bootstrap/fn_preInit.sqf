@@ -39,7 +39,9 @@ private ['_code', '_function', '_file', '_fileContent'];
     missionNamespace setVariable [_function, _code];
 }
 forEach 
-[
+[	
+	['ExileServer_util_getWeaponMagCargo','exile_server\code\ExileServer_util_getWeaponMagCargo.sqf'], 
+	['ExileServer_util_getWeaponAttachementCargo','exile_server\code\ExileServer_util_getWeaponAttachementCargo.sqf'],
 	['ExileServer_object_animal_event_onKilled', 'exile_server\code\ExileServer_object_animal_event_onKilled.sqf', false],
 	['ExileServer_object_animal_network_announceAnimalRequest', 'exile_server\code\ExileServer_object_animal_network_announceAnimalRequest.sqf', false],
 	['ExileServer_object_animal_network_gutAnimalRequest', 'exile_server\code\ExileServer_object_animal_network_gutAnimalRequest.sqf', false],
