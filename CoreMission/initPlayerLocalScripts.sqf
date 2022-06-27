@@ -1,6 +1,7 @@
 waitUntil {!isNull findDisplay 46 && !isNil 'ExileClientLoadedIn' && getPlayerUID player != ''};
 uiSleep 1;
 execVM "custom\scripts\fn_payBase.sqf";
+[] execVM "custom\PilotHUD\init.sqf";
 execVM "pre_proc.sqf";
 execVM "MarXet\MarXet_Init.sqf";
 _position = worldSize/2;
