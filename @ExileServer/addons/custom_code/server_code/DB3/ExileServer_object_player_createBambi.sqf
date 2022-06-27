@@ -113,6 +113,7 @@ _bambiPlayer setVariable ["ExileOwnerUID", getPlayerUID _requestingPlayer];
 _bambiPlayer setVariable ["ExileIsBambi", true];
 _bambiPlayer setVariable ["ExileXM8IsOnline", false, true];
 _bambiPlayer setVariable ["ExileLocker", (_accountData select 4), true];
+_bambiPlayer setUnitTrait ["UAVHacker" ,true];
 
 _getPremium = format ["getPremiumAndDate:%1",getPlayerUID _requestingPlayer] call ExileServer_system_database_query_selectSingle;
 if !((_getPremium select 0) isEqualTo 0) then 

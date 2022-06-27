@@ -25,6 +25,7 @@ _player disableAI "MOVE";
 _player disableAI "AUTOTARGET";
 _player disableAI "TARGET";
 _player disableAI "CHECKVISIBLE";
+_player setUnitTrait ["UAVHacker" ,true];
 _clanID = (_data select 42);
 _clanName = (_data select 43);
 if !((typeName _clanID) isEqualTo "SCALAR") then
