@@ -20,6 +20,8 @@ ExileClient_construction_beginNewObject = 				"custom\client_code\ExileClient_co
 ExileClient_system_bulletCam_thread = "custom\client_code\ExileClient_system_bulletCam_thread.sqf";
 //NVG bug fix
 ExileClient_util_playerEquipment_canAdd = "custom\client_code\ExileClient_util_playerEquipment_canAdd.sqf";
+//Base flag tweak
+ExileClient_gui_setupTerritoryDialog_event_onPlaceButtonClick = "custom\client_code\ExileClient_gui_setupTerritoryDialog_event_onPlaceButtonClick.sqf";
 
 //Paint
 ExileClient_construction_simulationCountDown = 			"custom\client_code\ExileClient_construction_simulationCountDown.sqf";
