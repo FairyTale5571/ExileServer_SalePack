@@ -16,6 +16,9 @@ ExileClient_object_player_event_onInventoryClosed =		"custom\client_code\ExileCl
 //Build-Height limit
 ExileClient_construction_beginNewObject = 				"custom\client_code\ExileClient_construction_beginNewObject.sqf";
 
+//BulletCam_Tweak
+ExileClient_system_bulletCam_thread = "custom\client_code\ExileClient_system_bulletCam_thread.sqf";
+
 //Paint
 ExileClient_construction_simulationCountDown = 			"custom\client_code\ExileClient_construction_simulationCountDown.sqf";
 ExileClient_object_construction_move = 					"custom\client_code\ExileClient_object_construction_move.sqf";
