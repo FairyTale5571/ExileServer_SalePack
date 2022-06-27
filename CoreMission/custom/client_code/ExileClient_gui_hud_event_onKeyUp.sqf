@@ -289,6 +289,7 @@ switch (_keyCode) do
 				{
 					if (alive player) then
 					{
+						ExileClientXM8CurrentSlide = "apps";
 						[] call ExileClient_gui_xm8_show;
 					};	
 				};
