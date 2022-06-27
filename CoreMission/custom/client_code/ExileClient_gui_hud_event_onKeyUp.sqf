@@ -47,9 +47,9 @@ switch (_keyCode) do
 	{
 		if (ExileClientIsAutoRunning) then
 		{
-			call ExileClient_system_autoRun_stop;
-			[] spawn {WeaponHolsterAutoRunBlock = true; sleep 3; WeaponHolsterAutoRunBlock = false;};
-			_stopPropagation = true; 
+		call ExileClient_system_autoRun_stop;
+		[] spawn {WeaponHolsterAutoRunBlock = true; sleep 3; WeaponHolsterAutoRunBlock = false;};
+		_stopPropagation = true; 
 		};
 	};
 	case 0x0B:	 	
@@ -223,34 +223,34 @@ switch (_keyCode) do
 	case 0x05: 	
 	{ 
 		if !(ExileClientIsHandcuffed || ExileIsPlayingRussianRoulette) then 
+	{
+		if (ExileClientIsInConstructionMode) then
 		{
-			if (ExileClientIsInConstructionMode) then
+			if !(ExileClientConstructionKitClassName isEqualTo "Exile_Item_Flag") then 
 			{
-				if !(ExileClientConstructionKitClassName isEqualTo "Exile_Item_Flag") then 
-				{
-					ExileClientConstructionModePhysx = !ExileClientConstructionModePhysx;
-					[] call ExileClient_gui_constructionMode_update;
-				};
+				ExileClientConstructionModePhysx = !ExileClientConstructionModePhysx;
+				[] call ExileClient_gui_constructionMode_update;
+			};
+		}
+		else
+		{
+			if (currentWeapon player != "") then
+			{
+				ExileClientPlayerHolsteredWeapon = currentWeapon player;
+				player action["switchWeapon", player, player, 100];
+				[] spawn {WeaponHolsterAutoRunBlock = true; sleep 3; WeaponHolsterAutoRunBlock = false;};
 			}
-			else
+			else 
 			{
-				if (currentWeapon player != "") then
+				if (ExileClientPlayerHolsteredWeapon != "") then
 				{
-					ExileClientPlayerHolsteredWeapon = currentWeapon player;
-					player action["switchWeapon", player, player, 100];
+					player selectWeapon ExileClientPlayerHolsteredWeapon;
 					[] spawn {WeaponHolsterAutoRunBlock = true; sleep 3; WeaponHolsterAutoRunBlock = false;};
-				}
-				else 
-				{
-					if (ExileClientPlayerHolsteredWeapon != "") then
-					{
-						player selectWeapon ExileClientPlayerHolsteredWeapon;
-						[] spawn {WeaponHolsterAutoRunBlock = true; sleep 3; WeaponHolsterAutoRunBlock = false;};
-					};
 				};
 			};
 		};
-		_stopPropagation = true;
+	};
+	_stopPropagation = true;
 	};
 	case 0x06:
 	{

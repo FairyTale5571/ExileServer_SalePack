@@ -37,9 +37,14 @@ ExileClient_construction_thread = 						"custom\client_code\ExileClient_construc
 ExileClient_object_player_death_forceRespawn = 			"custom\client_code\ExileClient_object_player_death_forceRespawn.sqf";
 ExileClient_action_execute = 							"custom\client_code\ExileClient_action_execute.sqf";
 
+//Autorun fix
+ExileClient_system_autoRun_canAutoRun = "custom\client_code\ExileClient_system_autoRun_canAutoRun.sqf";
+ExileClient_system_autoRun_stop = "custom\client_code\ExileClient_system_autoRun_stop.sqf";
+
 ExileClient_gui_xm8_slide_players_event_onPlayerListBoxSelectionChanged = "custom\client_code\ExileClient_gui_xm8_slide_players_event_onPlayerListBoxSelectionChanged.sqf";
 
 //Fixes
+ExileClient_object_construction_network_constructionMoveResponse = "custom\client_code\ExileClient_object_construction_network_constructionMoveResponse.sqf";
 ExileClient_util_playerEquipment_add = 					"custom\client_code\ExileClient_util_playerEquipment_add.sqf";
 ExileClient_gui_vehicleRekeyDialog_network_rekeyVehicleDialogResponse = "custom\client_code\ExileClient_gui_vehicleRekeyDialog_network_rekeyVehicleDialogResponse.sqf";
 ExileClient_object_vehicle_network_resetCodeResponse =  "custom\client_code\ExileClient_object_vehicle_network_resetCodeResponse.sqf";
