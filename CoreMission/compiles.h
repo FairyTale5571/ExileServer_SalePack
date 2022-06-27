@@ -18,6 +18,8 @@ ExileClient_construction_beginNewObject = 				"custom\client_code\ExileClient_co
 
 //BulletCam_Tweak
 ExileClient_system_bulletCam_thread = "custom\client_code\ExileClient_system_bulletCam_thread.sqf";
+//NVG bug fix
+ExileClient_util_playerEquipment_canAdd = "custom\client_code\ExileClient_util_playerEquipment_canAdd.sqf";
 
 //Paint
 ExileClient_construction_simulationCountDown = 			"custom\client_code\ExileClient_construction_simulationCountDown.sqf";
