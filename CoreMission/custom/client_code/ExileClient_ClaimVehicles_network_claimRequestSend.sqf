@@ -1,8 +1,8 @@
 /*
 
- 	Name: ExileServer_ClaimVehicle_network_InsertClaimedVehicle.sqf
+    Name: ExileClient_ClaimVehicles_network_claimRequestSend.sqf
 
- 	Author: MezoPlays
+    Author: MezoPlays
     Copyright (c) 2016 MezoPlays
 
     This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -16,19 +16,30 @@ _object = typeOf _object;
 
 try
 {
-    if !(local _vehicleObj) then
+    if(ExileClientPlayerIsInCombat)then
     {
-        throw "Get in the drivers seat first";
+        throw "You cannot do that whilst in combat!";
     };
-    if !(_object isKindOf "AIR" || _object isKindOf "CAR" || _object isKindOf "TANK") then
+    if(ExilePlayerInSafezone)then
     {
-        throw "That's not a Vehicle... derp!";
+        throw "You cannot do that in Safezones!";
     };
     if !("Exile_Item_Codelock" in (player call ExileClient_util_playerCargo_list)) then
     {
         throw "You need a codelock to do that!";
     };
-
+    if !(local _vehicleObj) then
+    {
+        throw "Get in the drivers seat first!";
+    };
+    if (_vehicleObj getVariable ["ExileIsPersistent", false]) then
+    {
+        throw "This vehicle is already claimed!";
+    };
+    if !(_object isKindOf "AIR" || _object isKindOf "CAR" || _object isKindOf "TANK") then
+    {
+        throw "You cannot claim this!";
+    };
     _pincode = 4 call ExileClient_gui_keypadDialog_show;
 
     if !(count _pinCode == 4) then

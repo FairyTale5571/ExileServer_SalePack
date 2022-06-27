@@ -27,19 +27,19 @@ try
     };
     if !(_vehicle isKindOf "AIR" || _vehicle isKindOf "CAR" || _vehicle isKindOf "TANK") then
     {
-        throw "That's not a vehicle!";
+        throw "You cannot claim this vehicle";
     };
-    if (_vehicle getVariable ["ExileIsPersistent", true]) then
+    if (_vehicle getVariable ["ExileIsPersistent", false]) then
     {
-        throw "This vehicle is already claimed!";
+        throw "This vehicle is already owned";
     };
     if !(isNil {_vehicleObj getVariable "SC_drivenVehicle"}) then
     {
-        throw "This vehicle is owned by the server!";
+        throw "Vehicle is owned by the server";
     };
     if !(count _pinCode == 4) then
     {
-        throw "Your pincode must be 4 digits!";
+        throw "Your pincode must be 4 digits";
     };
 
     _playerObject removeMagazineGlobal "Exile_Item_CodeLock";
@@ -56,7 +56,11 @@ try
 
 
     [_sessionID, "toastRequest", ["SuccessTitleOnly", ["You're now the owner of this vehicle!"]]] call ExileServer_system_network_send_to;
-
+	//Uncomment below for infiSTAR logging
+    //_claimLog = format ["PLAYER: ( %1 ) %2 CLAIMED VEHICLE %3 - NEW PIN %4 @ %5",getPlayerUID _playerObject,_playerObject,typeOf _vehicle,_pinCode,mapGridPosition _vehicle];
+	//["CLAIMVEHLOG",_claimLog] call FNC_A3_CUSTOMLOG;
+	//New below so it is ignored by cleanup (such as from DMS AI vehicles)
+	_vehicle setVariable ["claimed", true];
 }
 catch
 {

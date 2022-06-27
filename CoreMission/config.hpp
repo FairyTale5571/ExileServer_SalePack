@@ -4543,7 +4543,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -4637,7 +4637,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -4730,7 +4730,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -4832,7 +4832,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -5205,7 +5205,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
