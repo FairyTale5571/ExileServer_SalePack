@@ -502,6 +502,11 @@ class CfgNetworkMessages
 		module = "KillMessages";
 		parameters[] = {"STRING","STRING","OBJECT","OBJECT"};
 	};
+	class rekeyVehicleRequest
+ {
+       module = "object_vehicle";
+       parameters[] = {"STRING","STRING","SCALAR"};
+ };
 };
 
 class CfgRemoteExec

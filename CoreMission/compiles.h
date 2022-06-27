@@ -41,6 +41,9 @@ ExileClient_gui_xm8_slide_players_event_onPlayerListBoxSelectionChanged = "custo
 
 //Fixes
 ExileClient_util_playerEquipment_add = 					"custom\client_code\ExileClient_util_playerEquipment_add.sqf";
+ExileClient_gui_vehicleRekeyDialog_network_rekeyVehicleDialogResponse = "custom\client_code\ExileClient_gui_vehicleRekeyDialog_network_rekeyVehicleDialogResponse.sqf";
+ExileClient_object_vehicle_network_resetCodeResponse =  "custom\client_code\ExileClient_object_vehicle_network_resetCodeResponse.sqf";
+ExileClient_object_vehicle_rekeyVehicle = 				"custom\client_code\ExileClient_object_vehicle_rekeyVehicle.sqf";
 ExileClient_object_player_event_onTake = 				"custom\client_code\ExileClient_object_player_event_onTake.sqf";
 ExileClient_object_handcuffs_use = 						"custom\client_code\ExileClient_object_handcuffs_use.sqf";								//fix
 ExileClient_object_player_event_onKilled = 				"custom\client_code\ExileClient_object_player_event_onKilled.sqf";								//fix
