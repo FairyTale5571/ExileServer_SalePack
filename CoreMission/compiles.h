@@ -16,6 +16,13 @@ ExileClient_object_player_event_onInventoryClosed =		"custom\client_code\ExileCl
 //Build-Height limit
 ExileClient_construction_beginNewObject = 				"custom\client_code\ExileClient_construction_beginNewObject.sqf";
 
+//BulletCam_Tweak
+ExileClient_system_bulletCam_thread = "custom\client_code\ExileClient_system_bulletCam_thread.sqf";
+//NVG bug fix
+ExileClient_util_playerEquipment_canAdd = "custom\client_code\ExileClient_util_playerEquipment_canAdd.sqf";
+//Base flag tweak
+ExileClient_gui_setupTerritoryDialog_event_onPlaceButtonClick = "custom\client_code\ExileClient_gui_setupTerritoryDialog_event_onPlaceButtonClick.sqf";
+
 //Paint
 ExileClient_construction_simulationCountDown = 			"custom\client_code\ExileClient_construction_simulationCountDown.sqf";
 ExileClient_object_construction_move = 					"custom\client_code\ExileClient_object_construction_move.sqf";
@@ -27,13 +34,27 @@ ExileClient_gui_constructionMode_update = 				"custom\client_code\ExileClient_gu
 ExileClient_gui_hud_event_onKeyUp = 					"custom\client_code\ExileClient_gui_hud_event_onKeyUp.sqf";
 ExileClient_construction_thread = 						"custom\client_code\ExileClient_construction_thread.sqf";
 
+//Unlock_DLC_Vehicles
+ExileClient_gui_interactionMenu_hook = "custom\client_code\ExileClient_gui_interactionMenu_hook.sqf";
+ExileClient_object_vehicle_checkForDLCAndSeat = "custom\client_code\ExileClient_object_vehicle_checkForDLCAndSeat.sqf";
+ExileClient_object_vehicle_getInteractionName = "custom\client_code\ExileClient_object_vehicle_getInteractionName.sqf";
+ExileClient_object_vehicle_moveInSeat = "custom\client_code\ExileClient_object_vehicle_moveInSeat.sqf";
+
 ExileClient_object_player_death_forceRespawn = 			"custom\client_code\ExileClient_object_player_death_forceRespawn.sqf";
 ExileClient_action_execute = 							"custom\client_code\ExileClient_action_execute.sqf";
+
+//Autorun fix
+ExileClient_system_autoRun_canAutoRun = "custom\client_code\ExileClient_system_autoRun_canAutoRun.sqf";
+ExileClient_system_autoRun_stop = "custom\client_code\ExileClient_system_autoRun_stop.sqf";
 
 ExileClient_gui_xm8_slide_players_event_onPlayerListBoxSelectionChanged = "custom\client_code\ExileClient_gui_xm8_slide_players_event_onPlayerListBoxSelectionChanged.sqf";
 
 //Fixes
+ExileClient_object_construction_network_constructionMoveResponse = "custom\client_code\ExileClient_object_construction_network_constructionMoveResponse.sqf";
 ExileClient_util_playerEquipment_add = 					"custom\client_code\ExileClient_util_playerEquipment_add.sqf";
+ExileClient_gui_vehicleRekeyDialog_network_rekeyVehicleDialogResponse = "custom\client_code\ExileClient_gui_vehicleRekeyDialog_network_rekeyVehicleDialogResponse.sqf";
+ExileClient_object_vehicle_network_resetCodeResponse =  "custom\client_code\ExileClient_object_vehicle_network_resetCodeResponse.sqf";
+ExileClient_object_vehicle_rekeyVehicle = 				"custom\client_code\ExileClient_object_vehicle_rekeyVehicle.sqf";
 ExileClient_object_player_event_onTake = 				"custom\client_code\ExileClient_object_player_event_onTake.sqf";
 ExileClient_object_handcuffs_use = 						"custom\client_code\ExileClient_object_handcuffs_use.sqf";								//fix
 ExileClient_object_player_event_onKilled = 				"custom\client_code\ExileClient_object_player_event_onKilled.sqf";								//fix

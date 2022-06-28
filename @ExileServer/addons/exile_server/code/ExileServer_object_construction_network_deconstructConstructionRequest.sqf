@@ -90,9 +90,15 @@ try
 			_message = "Aaaand, it's gone!";
 		};
 		deleteVehicle _object;
-		if !(isNull _flag) then 
+		if !(isNull _flag) then
 		{
-			_flag call ExileServer_system_territory_updateNumberOfConstructions;
+			[_flag] spawn 
+			{
+				params ["_flag"];
+				
+				uisleep 1;
+				_flag call ExileServer_system_territory_updateNumberOfConstructions;
+			};
 		};
 		[_sessionID, "toastRequest", ["SuccessTitleAndText", ["Object deconstructed!", _message]]] call ExileServer_system_network_send_to;
 	}

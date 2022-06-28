@@ -50,7 +50,7 @@ try
 		_object call ExileServer_system_vehicleSaveQueue_addVehicle;
 	};
 	_object enableRopeAttach true;
-	_object setVariable ["ExileLastLockToggleAt", time];
+	//_object setVariable ["ExileLastLockToggleAt", time];
 	_object setVariable ["ExileAccessDenied", false];
 	_object setVariable ["ExileAccessDeniedExpiresAt", 0];
 	[_sessionID, "toastRequest", ["SuccessTitleOnly", ["Vehicle hotwired!"]]] call ExileServer_system_network_send_to;

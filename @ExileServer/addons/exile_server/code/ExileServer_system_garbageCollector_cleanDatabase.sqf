@@ -24,6 +24,8 @@ format ["markDeleteUnpaidTerritories:%1", _territoryLifeTime] call ExileServer_s
 format ["markDeleteOldContainers:%1", _containerLifeTime] call ExileServer_system_database_query_fireAndForget;
 format ["markDeleteOldVehicles:%1", _vehicleLifeTime] call ExileServer_system_database_query_fireAndForget;
 format ["deleteUnpaidTerritories:%1", _permanentlyDeleteTime] call ExileServer_system_database_query_fireAndForget;
+format ["deleteUnpaidTerritories_construction:%1", _permanentlyDeleteTime] call ExileServer_system_database_query_fireAndForget;
+format ["deleteUnpaidTerritories_container:%1", _permanentlyDeleteTime] call ExileServer_system_database_query_fireAndForget;
 format ["deleteOldContainers:%1", _permanentlyDeleteTime] call ExileServer_system_database_query_fireAndForget;
 format ["deleteOldConstructions:%1", _permanentlyDeleteTime] call ExileServer_system_database_query_fireAndForget;
 format ["deleteOldVehicles:%1", _permanentlyDeleteTime] call ExileServer_system_database_query_fireAndForget;

@@ -25,6 +25,7 @@ _player disableAI "MOVE";
 _player disableAI "AUTOTARGET";
 _player disableAI "TARGET";
 _player disableAI "CHECKVISIBLE";
+_player setUnitTrait ["UAVHacker" ,true];
 _clanID = (_data select 42);
 _clanName = (_data select 43);
 if !((typeName _clanID) isEqualTo "SCALAR") then
@@ -101,6 +102,9 @@ _player setVariable ["ExileXM8IsOnline", false, true];
 _player setOxygenRemaining (_data select 7);
 _player setBleedingRemaining (_data select 8);
 _player setVariable ["ExileLocker", (_data select 46), true];
+
+_vg_slots = format ["getVirtualGarageSlots:%1",_playerUID] call ExileServer_system_database_query_selectSingleField;
+_player setVariable ["VG_Slots", _vg_slots, true];
 /* 
 _queryAi = format ["getAi:%1",(_player getVariable ["ExileDatabaseID",-1])] call ExileServer_system_database_query_selectSingleField;
 _player setVariable ["dataAi",_queryAi, true];

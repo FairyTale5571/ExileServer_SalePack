@@ -1,6 +1,6 @@
 Требуемые моды для работы сервера: @Exile, @Namalsk (при использовании карты Namalsk)
 Установка http://s-platoon.ru/topic/3875-ustanovka-servera-arma-3-exile-mod
-ВАЖНО! После того как создадите базу данных и зальете туда данные с файла exile.sql, необходимо  после этого импортировать файл update_sql.sql и update_sql2.sql
+Создать бд с помощью скрипта Exile_Atlas.sql
 
 Основные настройки сервера находяться в файлах:
 Exile.YourMap\config.hpp

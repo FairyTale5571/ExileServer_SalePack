@@ -8,7 +8,6 @@ execVM "R3F_LOG\init.sqf";
 
 //Configs vars
 ExileClientXM8IsPowerOn = true;
-
 ExileClientPlayerIsDragging = false;
 WeaponHolsterAutoRunBlock = false;
 

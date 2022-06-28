@@ -28,17 +28,14 @@ try
 	_vehiclePinCode = _vehicle getVariable ["ExileAccessCode","000000"];
 	if (_vehiclePinCode isEqualTo "000000") then
 	{
-		throw "Non-persistent vehicle."
+		throw "Cannot change code!<br/>Vehicle has no lock!<br/>Claim it with a codelock..."
 	};
 	_playerMoney = _player getVariable ["ExileMoney", 0];
 	if (_rekeyCost > _playerMoney) then
 	{
-		throw "Player does not have enough money.";
+		throw "You don't have enough poptabs!";
 	};
-	_responseCode = "Rekey successful";
-	_playerMoney = _playerMoney - _rekeyCost;
-	_player setVariable ["ExileMoney", _playerMoney, true];
-	format["setPlayerMoney:%1:%2", _playerMoney, _player getVariable ["ExileDatabaseID", 0]] call ExileServer_system_database_query_fireAndForget;
+	_responseCode = "enough poptabs";
 	[_sessionID,"rekeyVehicleDialogResponse",[_responseCode, netId _vehicle,_rekeyCost]] call ExileServer_system_network_send_to;
 }
 catch 

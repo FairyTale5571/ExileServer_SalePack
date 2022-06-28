@@ -39,7 +39,7 @@ try
 	};
 	_object setVariable ["ExileIsLocked", 0, true];
 	_object call ExileServer_object_container_database_update;
-	_object setVariable ["ExileLastLockToggleAt", time];
+	//_object setVariable ["ExileLastLockToggleAt", time];
 	_object setVariable ["ExileAccessDenied", false];
 	_object setVariable ["ExileAccessDeniedExpiresAt", 0];
 	_hackAttempts = (_object getVariable ["ExileHackAttempts", 0]) + 1;

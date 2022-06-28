@@ -4473,6 +4473,8 @@ class CfgInteractionMenus
             };
         };
     };
+
+    #include "VirtualGarageP\CfgInteractionMenus.h"
 	class Bounties
 	{
 		targetType = 2;
@@ -4543,7 +4545,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -4637,7 +4639,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -4730,7 +4732,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -4773,6 +4775,33 @@ class CfgInteractionMenus
 				title = "Access Vehicle Service Point";
 				condition = "(count (nearestObjects [(getPos player), buildingObjects ,vmsRange]) >0) && (enableServicePoint == 1) && ['playerCall', getPos player] Call Bones_fnc_vmsChecks";
 				action = "_this call Bones_fnc_showServicePointDialogue";
+			};
+
+			// Get In DLC Driver
+			class GetInDLCDriver: ExileAbstractAction
+			{
+				title = "['Driver'] call ExileClient_object_vehicle_getInteractionName";
+				condition = "['Driver'] call ExileClient_object_vehicle_checkForDLCAndSeat";
+				action = "['Driver'] call ExileClient_object_vehicle_moveInSeat";
+				priority = 6;
+			};
+
+			// Get In DLC Gunner
+			class GetInDLCGunner: ExileAbstractAction
+			{
+				title = "['Gunner'] call ExileClient_object_vehicle_getInteractionName";
+				condition = "['Gunner'] call ExileClient_object_vehicle_checkForDLCAndSeat";
+				action = "['Gunner'] call ExileClient_object_vehicle_moveInSeat";
+				priority = 6;
+			};
+
+			// Get In DLC Commander
+			class GetInDLCCommander: ExileAbstractAction
+			{
+				title = "['Commander'] call ExileClient_object_vehicle_getInteractionName";
+				condition = "['Commander'] call ExileClient_object_vehicle_checkForDLCAndSeat";
+				action = "['Commander'] call ExileClient_object_vehicle_moveInSeat";
+				priority = 6;
 			};
 		};
 	};
@@ -4832,7 +4861,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 
@@ -5205,7 +5234,7 @@ class CfgInteractionMenus
 			class ClaimVehicle: ExileAbstractAction
 			{
 				title = "Claim Ownership";
-				condition = "true";
+				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "call ExileClient_ClaimVehicles_network_claimRequestSend";
 			};
 

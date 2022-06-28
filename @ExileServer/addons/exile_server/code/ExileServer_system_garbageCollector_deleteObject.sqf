@@ -11,6 +11,8 @@
  
 private["_object", "_fliesSound", "_fliesParticles"];
 _object = _this;
+//Claim vehicles fix so that cleanup ignores claimed vehicles such as DMS
+if (_object getVariable ["claimed", false])exitWith{};
 if (_object getVariable ["ExileIsSimulationMonitored", false]) then
 {
 	_object call ExileServer_system_simulationMonitor_removeVehicle;
