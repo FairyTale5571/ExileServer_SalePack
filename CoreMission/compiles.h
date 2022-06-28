@@ -22,6 +22,8 @@ ExileClient_system_bulletCam_thread = "custom\client_code\ExileClient_system_bul
 ExileClient_util_playerEquipment_canAdd = "custom\client_code\ExileClient_util_playerEquipment_canAdd.sqf";
 //Base flag tweak
 ExileClient_gui_setupTerritoryDialog_event_onPlaceButtonClick = "custom\client_code\ExileClient_gui_setupTerritoryDialog_event_onPlaceButtonClick.sqf";
+//Оповещение о том, что нужно подойти к флагу на 5м чтобы открыть ВГ
+ExileClient_gui_virtualGarageDialog_show = 				"custom\client_code\ExileClient_gui_virtualGarageDialog_show.sqf";
 
 //Paint
 ExileClient_construction_simulationCountDown = 			"custom\client_code\ExileClient_construction_simulationCountDown.sqf";
