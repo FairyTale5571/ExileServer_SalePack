@@ -9,7 +9,7 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_sessionID","_requestingPlayer","_spawnLocationMarkerName","_bambiPlayer","_accountData","_direction","_position","_spawnAreaPosition","_spawnAreaRadius","_clanID","_clanData","_clanGroup","_player","_devFriendlyMode","_devs","_parachuteNetID","_spawnType","_parachuteObject"];
+private["_sessionID", "_requestingPlayer", "_spawnLocationMarkerName", "_bambiPlayer", "_accountData", "_direction", "_position", "_spawnAreaPosition", "_spawnAreaRadius", "_clanID", "_clanData", "_clanGroup", "_player", "_devFriendlyMode", "_devs", "_parachuteNetID", "_spawnType", "_parachuteObject"];
 _sessionID = _this select 0;
 _requestingPlayer = _this select 1;
 _spawnLocationMarkerName = _this select 2;
@@ -31,41 +31,12 @@ else
 {
 	_spawnAreaPosition = getMarkerPos _spawnLocationMarkerName;
 	_spawnAreaRadius = getNumber(configFile >> "CfgSettings" >> "BambiSettings" >> "spawnZoneRadius");
-		if (str(_spawnAreaPosition) == "[0,0,0]") then {
-			_varF = _requestingPlayer getVariable [_spawnLocationMarkerName, []];
-			if (!isNil "_varF") then {
-				_spawnAreaPosition = getPos _varF;
-				_varF setVariable [(format ["lastSpawned_%1", _playerUID]), time, true];
-			}else{
-				_spawnAreaRadius = getNumber(configFile >> "CfgSettings" >> "BambiSettings" >> "spawnZoneRadius");
-			};
-		};
 	_position = [_spawnAreaPosition, _spawnAreaRadius] call ExileClient_util_math_getRandomPositionInCircle;
 	while {surfaceIsWater _position} do 
 	{
 		_position = [_spawnAreaPosition, _spawnAreaRadius] call ExileClient_util_math_getRandomPositionInCircle;
 	};
 };
-
-// Most-Wanted
-private ["_bounty","_lock","_interval","_type","_immunity"];
-_interval = getNumber(missionConfigFile >> "CfgMostWanted" >> "Database" >> "Immunity" >> "interval");
-_immunity = format ["hasImmunity:%1:%2",(getPlayerUID _requestingPlayer),_interval] call ExileServer_system_database_query_selectSingleField;
-_bambiPlayer setVariable ["ExileBountyImmunity", _immunity, true];
-
-_bounty = format ["getBounty:%1",(getPlayerUID _requestingPlayer)] call ExileServer_system_database_query_selectSingle;
-_bambiPlayer setVariable ["ExileBounty",_bounty select 0];
-_lock = false;
-if ((_bounty select 1) isEqualTo 1) then
-{
-	_lock = true;
-};
-_bambiPlayer setVariable ["ExileBountyLock",_lock,true];
-_bambiPlayer setVariable ["ExileBountyContract",_bounty select 2,true];
-_bambiPlayer setVariable ["ExileBountyCompletedContracts",_bounty select 3];
-_bambiPlayer setVariable ["ExileBountyFriends",_bounty select 4,true];
-// Most-Wanted
-
 _name = name _requestingPlayer;
 _clanID = (_accountData select 3);
 if !((typeName _clanID) isEqualTo "SCALAR") then
@@ -113,19 +84,9 @@ _bambiPlayer setVariable ["ExileOwnerUID", getPlayerUID _requestingPlayer];
 _bambiPlayer setVariable ["ExileIsBambi", true];
 _bambiPlayer setVariable ["ExileXM8IsOnline", false, true];
 _bambiPlayer setVariable ["ExileLocker", (_accountData select 4), true];
-_bambiPlayer setUnitTrait ["UAVHacker" ,true];
 
 _vg_slots = format ["getVirtualGarageSlots:%1",getPlayerUID _requestingPlayer] call ExileServer_system_database_query_selectSingleField;
 _bambiPlayer setVariable ["VG_Slots", _vg_slots, true];
-
-_getPremium = format ["getPremiumAndDate:%1",getPlayerUID _requestingPlayer] call ExileServer_system_database_query_selectSingle;
-if !((_getPremium select 0) isEqualTo 0) then 
-{
-	_bambiPlayer setVariable ["PremiumLevel",(_getPremium select 0),true];
-	_bambiPlayer setVariable ["PremiumDate",(_getPremium select 1)];
-	_bambiPlayer call ExileServer_system_player_premium_dateOver;
-};
-
 
 _devFriendlyMode = getNumber (configFile >> "CfgSettings" >> "ServerSettings" >> "devFriendyMode");
 if (_devFriendlyMode isEqualTo 1) then 
@@ -134,7 +95,7 @@ if (_devFriendlyMode isEqualTo 1) then
 	{
 		if ((getPlayerUID _requestingPlayer) isEqualTo (_x select 0))exitWith 
 		{
-			if((name _requestingPlayer) isEqualTo (_x select 1))then
+			if ((name _requestingPlayer) isEqualTo (_x select 1))then
 			{
 				_bambiPlayer setVariable ["ExileMoney", 500000, true];
 				_bambiPlayer setVariable ["ExileScore", 100000];
@@ -144,10 +105,7 @@ if (_devFriendlyMode isEqualTo 1) then
 	forEach _devs;
 };
 _parachuteNetID = "";
-_thugToCheck = _sessionID call ExileServer_system_session_getPlayerObject;
-_HaloSpawnCheck = _thugToCheck getVariable ["playerWantsHaloSpawn", 0];
-
-if (_HaloSpawnCheck isEqualTo 1) then
+if ((getNumber(configFile >> "CfgSettings" >> "BambiSettings" >> "parachuteSpawning")) isEqualTo 1) then
 {
 	_position set [2, getNumber(configFile >> "CfgSettings" >> "BambiSettings" >> "parachuteDropHeight")]; 
 	if ((getNumber(configFile >> "CfgSettings" >> "BambiSettings" >> "haloJump")) isEqualTo 1) then
@@ -169,28 +127,6 @@ if (_HaloSpawnCheck isEqualTo 1) then
 else
 {
 	_spawnType = 0;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-
-clearWeaponCargo _bambiPlayer;
-clearMagazineCargo _bambiPlayer;
-_bambiPlayer forceAddUniform "Exile_Uniform_ExileCustoms";
-_bambiPlayer addWeapon "ItemGPS";
-_bambiPlayer addWeapon "Exile_Item_XM8";
-_bambiPlayer addWeapon "ItemCompass";
-_bambiPlayer addWeapon "Exile_Weapon_Makarov";
-_bambiPlayer addItemToUniform "Exile_Magazine_8Rnd_9x18";
-
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-
-if((canTriggerDynamicSimulation _player) isEqualTo false) then 
-{
-	_player triggerDynamicSimulation true; 
 };
 _bambiPlayer addMPEventHandler ["MPKilled", {_this call ExileServer_object_player_event_onMpKilled}];
 _bambiPlayer call ExileServer_object_player_database_insert;
@@ -214,7 +150,4 @@ _bambiPlayer call ExileServer_object_player_database_update;
 ] 
 call ExileServer_system_network_send_to;
 [_sessionID, _bambiPlayer] call ExileServer_system_session_update;
-
-
-
 true

@@ -2,6 +2,7 @@
 #define false 0
 
 #include "infiSTAR_AdminMenu.hpp"
+#include "VirtualGarageP\dialog.h"
 // Required for the XM8, do not remove!
 #include "RscDefines.hpp"
 #include "Custom\vehicleManagementSystem\GUI\Bones_Service_Point.hpp"
@@ -165,7 +166,8 @@ class CfgHints
 };
 
 class CfgNetworkMessages
-{
+{	
+	#include "VirtualGarageP\CfgNetworkMessages.h"
 	class hackFlagRequest
 	{
 		module="object_flag";

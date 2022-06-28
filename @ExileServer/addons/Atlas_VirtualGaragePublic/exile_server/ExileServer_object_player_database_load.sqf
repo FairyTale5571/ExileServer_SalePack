@@ -9,7 +9,7 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_data","_oldPlayerObject","_playerUID","_sessionID","_position","_direction","_player","_clanID","_clanName","_clanData","_clanGroup","_devFriendlyMode","_devs","_requestingPlayer","_bambiPlayer","_headgear","_goggles","_binocular","_primaryWeapon","_handgunWeapon","_secondaryWeapon","_currentWeapon","_uniform","_vest","_backpack","_uniformContainer","_vestContainer","_backpackContainer","_assignedItems"];
+private["_data", "_oldPlayerObject", "_playerUID", "_sessionID", "_position", "_direction", "_player", "_clanID", "_clanName", "_clanData", "_clanGroup", "_devFriendlyMode", "_devs", "_headgear", "_goggles", "_binocular", "_primaryWeapon", "_handgunWeapon", "_secondaryWeapon", "_currentWeapon", "_uniform", "_vest", "_backpack", "_uniformContainer", "_vestContainer", "_backpackContainer", "_assignedItems"];
 _data = _this select 0;
 _oldPlayerObject = _this select 1;
 _playerUID = _this select 2;
@@ -25,7 +25,6 @@ _player disableAI "MOVE";
 _player disableAI "AUTOTARGET";
 _player disableAI "TARGET";
 _player disableAI "CHECKVISIBLE";
-_player setUnitTrait ["UAVHacker" ,true];
 _clanID = (_data select 42);
 _clanName = (_data select 43);
 if !((typeName _clanID) isEqualTo "SCALAR") then
@@ -51,38 +50,6 @@ else
 };
 _player setDamage (_data select 3);
 _player setName _name;
-private ["_dailyReward"];
-_dailyReward = format ["getAccountReward:%1",_playerUID] call ExileServer_system_database_query_selectSingleField;
-_player setVariable ["ExileDailyReward", _dailyReward, true];
-
-// Most-Wanted
-private ["_bounty","_lock","_interval","_type","_immunity"];
-
-_interval = getNumber(missionConfigFile >> "CfgMostWanted" >> "Database" >> "Immunity" >> "interval");
-_immunity = format ["hasImmunity:%1:%2",_playerUID,_interval] call ExileServer_system_database_query_selectSingleField;
-_player setVariable ["ExileBountyImmunity", _immunity, true];
-
-_bounty = format["getBounty:%1",_playerUID] call ExileServer_system_database_query_selectSingle;
-_player setVariable ["ExileBounty",_bounty select 0];
-_lock = false;
-if ((_bounty select 1) isEqualTo 1) then
-{
-	_lock = true;
-};
-_player setVariable ["ExileBountyLock",_lock,true];
-_player setVariable ["ExileBountyContract",_bounty select 2,true];
-_player setVariable ["ExileBountyCompletedContracts",_bounty select 3];
-_player setVariable ["ExileBountyFriends",_bounty select 4,true];
-// Most-Wanted
-
-_getPremium = format ["getPremiumAndDate:%1",_playerUID] call ExileServer_system_database_query_selectSingle;
-if !((_getPremium select 0) isEqualTo 0) then 
-{
-	_player setVariable ["PremiumLevel",(_getPremium select 0),true];
-	_player setVariable ["PremiumDate",(_getPremium select 1)];
-	_player call ExileServer_system_player_premium_dateOver;
-};
-
 _player setVariable ["ExileMoney", (_data select 38), true];
 _player setVariable ["ExileScore", (_data select 39)];
 _player setVariable ["ExileKills", (_data select 40)];
@@ -99,16 +66,13 @@ _player setVariable ["ExileTemperature", _data select 44];
 _player setVariable ["ExileWetness", _data select 45]; 
 _player setVariable ["ExileIsBambi", false];
 _player setVariable ["ExileXM8IsOnline", false, true];
-_player setOxygenRemaining (_data select 7);
-_player setBleedingRemaining (_data select 8);
-_player setVariable ["ExileLocker", (_data select 46), true];
 
 _vg_slots = format ["getVirtualGarageSlots:%1",_playerUID] call ExileServer_system_database_query_selectSingleField;
 _player setVariable ["VG_Slots", _vg_slots, true];
-/* 
-_queryAi = format ["getAi:%1",(_player getVariable ["ExileDatabaseID",-1])] call ExileServer_system_database_query_selectSingleField;
-_player setVariable ["dataAi",_queryAi, true];
- */
+
+_player setOxygenRemaining (_data select 7);
+_player setBleedingRemaining (_data select 8);
+_player setVariable ["ExileLocker", (_data select 46), true];
 [_player, _data select 9] call ExileClient_util_player_applyHitPointMap;
 _devFriendlyMode = getNumber (configFile >> "CfgSettings" >> "ServerSettings" >> "devFriendyMode");
 if (_devFriendlyMode isEqualTo 1) then 
@@ -260,19 +224,10 @@ if !(_assignedItems isEqualTo []) then
 	}
 	forEach _assignedItems;
 };
-
 _player addMPEventHandler ["MPKilled", {_this call ExileServer_object_player_event_onMpKilled}];
 if (getNumber (configFile >> "CfgSettings" >> "VehicleSpawn" >> "thermalVision") isEqualTo 0) then 
 {
 	_player addEventHandler ["WeaponAssembled", {(_this select 1) disableTIEquipment true;}];
-};
-if (getNumber(missionConfigFile >> "CfgSimulation" >> "enableDynamicSimulation") isEqualTo 1) then 
-{
-	if ((canTriggerDynamicSimulation _player) isEqualTo false) then
-	{
-		_player triggerDynamicSimulation true;
-	  	_player enableDynamicSimulation true;
-	};
 };
 [
 	_sessionID, 
@@ -292,17 +247,4 @@ if (getNumber(missionConfigFile >> "CfgSimulation" >> "enableDynamicSimulation")
 ] 
 call ExileServer_system_network_send_to;
 [_sessionID, _player] call ExileServer_system_session_update;
-
-if (getNumber (configFile >> "CfgTerritories" >> "enableProtectionVehicles") isEqualTo 1) then 
-{
-	_vehObjects = allMissionObjects "Car" + allMissionObjects "Air" + allMissionObjects "Ship";
-	_ownerCheck = _player getVariable ["ExileOwnerUID",""];
-	{
-	_vehicleOwner = _x getVariable ["ExileOwnerUID",""]; 
-	if (_ownerCheck isEqualTo _vehicleOwner) then
-		{
-			_x allowDamage true; 
-		};
-	} forEach _vehObjects;
-};
 true

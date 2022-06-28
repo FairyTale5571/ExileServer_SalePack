@@ -4473,6 +4473,8 @@ class CfgInteractionMenus
             };
         };
     };
+
+    #include "VirtualGarageP\CfgInteractionMenus.h"
 	class Bounties
 	{
 		targetType = 2;
