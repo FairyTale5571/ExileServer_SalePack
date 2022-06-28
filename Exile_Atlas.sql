@@ -1,8 +1,4 @@
 
--- Дамп структуры базы данных exile_napf
-CREATE DATABASE IF NOT EXISTS `exile_napf` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
-USE `exile_napf`;
-
 -- Дамп структуры для таблица exile_napf.account
 CREATE TABLE IF NOT EXISTS `account` (
   `uid` varchar(32) NOT NULL,
