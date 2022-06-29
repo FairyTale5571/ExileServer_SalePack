@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `exile` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
-USE `exile`;
--- Дамп структуры для таблица exile_napf.account
 CREATE TABLE IF NOT EXISTS `account` (
   `uid` varchar(32) NOT NULL,
   `clan_id` int(11) unsigned DEFAULT NULL,
