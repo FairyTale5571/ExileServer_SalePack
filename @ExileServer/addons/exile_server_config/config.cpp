@@ -476,10 +476,10 @@ class CfgSettings
 	class Time
 	{
 		// Uses Dedicated Server time as ingame Time
-		useRealTime = 0;
+		useRealTime = 1;
 
 		// Will overide RealTime
-		useStaticTime = 1;
+		useStaticTime = 0;
 
 		// time in ARMA FORMAT << CONFIG
 		// https://community.bistudio.com/wiki/setDate
