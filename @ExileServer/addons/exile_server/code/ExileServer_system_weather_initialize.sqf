@@ -11,8 +11,21 @@
  
 private["_changetime"];
 call ExileServer_system_weather_thread_weatherSimulation;
+_useRealTime = getNumber (configFile >> "CfgSettings" >> "Time" >> "useRealTime");
+_useStaticTime = getNumber (configFile >> "CfgSettings" >> "Time" >> "useStaticTime");
+_staticTime = getArray (configFile >> "CfgSettings" >> "Time" >> "staticTime");
 
-setDate ExileServerStartTime;
+if(_useStaticTime isEqualTo 1)then
+{
+    setDate _staticTime;
+}
+else
+{
+    if(_useRealTime isEqualTo 1)then
+    {
+        setDate ExileServerStartTime;
+    };
+};
 
 forceWeatherChange;
 _changetime = round(getNumber (configFile >> "CfgSettings" >> "Weather" >> "interval") * 60);
