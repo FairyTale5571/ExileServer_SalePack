@@ -4121,6 +4121,7 @@ class CfgExileEnvironment
 			water = -5;
 		};
 	};
+	
 	class Altis 
 	{
 		class FireFlies
