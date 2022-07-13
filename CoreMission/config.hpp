@@ -5591,7 +5591,8 @@ class CfgInteractionModels
 	};
 };
 class CfgLocker 
-{
+{	
+	startDeposit = 20000
 	numbersOnly = "0123456789";	//не трогать
 	maxDeposit = 100000;		//Максимальный депозит в банке
 	multiplierCapacity = 50;	//На сколько увеличить хранилище для денег (это не банк)
