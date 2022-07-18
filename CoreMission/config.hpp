@@ -3970,6 +3970,47 @@ class CfgExileEnvironment
 		};
 	};
 
+	class sara
+	{
+		class FireFlies
+		{
+			enable = 1;
+			startHour = 18;
+			endHour = 4;
+		};
+		class Anomalies
+		{
+			enable = 0;
+			startHour = 19;
+			endHour = 6;
+		};
+		class Breathing
+		{
+			enable = 1;
+		};
+		class Snow
+		{
+			// 1 = enabled, 0 = disabled
+			enable = 1;
+			// https://community.bistudio.com/wiki/surfaceType
+			surfaces[] = {};
+		};
+		class Radiation
+		{
+			enable = 1;
+			contaminatedZones[] = {};
+		};
+		class Temperature
+		{
+			daytimeTemperature[] = {8.12,8.50,8.32,8.90,9.10,9.40,10.18,12.03,16.00,18.46,19.13,20.00,20.12,19.97,18.36,17.45,16.69,14.36,12.80,10.25,9.89,9.40,8.90,8.50,8.41};
+			overcast = -2;
+			rain = -5;
+			wind = -2;
+			altitude = -0.5;
+			water = -5;
+		};
+	};
+
 	class Napf
 	{
 		class FireFlies
