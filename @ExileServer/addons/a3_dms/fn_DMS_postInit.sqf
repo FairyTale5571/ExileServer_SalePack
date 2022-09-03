@@ -26,7 +26,7 @@ if (isNil "DMS_ConfigLoaded") exitWith
 // This code is NECESSARY for spawning persistent vehicles. DO NOT REMOVE THIS CODE UNLESS YOU KNOW WHAT YOU ARE DOING
 if !("isKnownAccount:DMS_PersistentVehicle" call ExileServer_system_database_query_selectSingleField) then
 {
-	"createAccount:DMS_PersistentVehicle:DMS_PersistentVehicle" call ExileServer_system_database_query_fireAndForget;
+	"createAccount:DMS_PersistentVehicle:DMS_PersistentVehicle:0" call ExileServer_system_database_query_fireAndForget;
 };
 
 
