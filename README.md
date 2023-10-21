@@ -1,3 +1,8 @@
+# This build not supported anymore.
+## I leaved from arma, and published it as is
+## If your scripts are here, then this is a coincidence. Which I will not correct, accept it as it is.
+
+
 Требуемые моды для работы сервера: @Exile, @Namalsk (при использовании карты Namalsk)
 Установка http://s-platoon.ru/topic/3875-ustanovka-servera-arma-3-exile-mod
 Создать бд с помощью скрипта Exile_Atlas.sql
